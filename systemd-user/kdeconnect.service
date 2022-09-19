@@ -1,0 +1,9 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+ExecStart=/usr/libexec/kdeconnectd
+Restart=on-abort
+
+[Unit]
+Description=Adds communication between your desktop and your smartphone

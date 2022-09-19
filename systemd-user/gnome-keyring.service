@@ -1,0 +1,9 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+ExecStart=/usr/bin/gnome-keyring-daemon --start --foreground
+Restart=on-abort
+
+[Unit]
+Description=GNOME Keyring

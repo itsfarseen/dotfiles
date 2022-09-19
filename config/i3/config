@@ -1,0 +1,120 @@
+font pango:monospace 8.000000
+floating_modifier Mod4
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders none
+force_focus_wrapping no
+focus_follows_mouse yes
+focus_on_window_activation smart
+mouse_warping output
+workspace_layout default
+workspace_auto_back_and_forth no
+client.focused #45c482 #45c482 #000000 #333333 #45c482
+client.focused_inactive #333333 #333333 #000000 #333333 #333333
+client.unfocused #333333 #333333 #000000 #333333 #333333
+client.urgent #2f343a #900000 #ffffff #900000 #900000
+client.placeholder #000000 #0c0c0c #ffffff #000000 #0c0c0c
+client.background #ffffff
+
+bindsym Mod4+0 workspace number 10: Temp
+bindsym Mod4+1 workspace number 1: Web
+bindsym Mod4+2 workspace number 2: Code
+bindsym Mod4+3 workspace number 3: Code
+bindsym Mod4+4 workspace number 4
+bindsym Mod4+5 workspace number 5
+bindsym Mod4+6 workspace number 6
+bindsym Mod4+7 workspace number 7
+bindsym Mod4+8 workspace number 8: Comms
+bindsym Mod4+9 workspace number 9
+bindsym Mod4+Ctrl+0 move container to workspace number 10: Temp
+bindsym Mod4+Ctrl+1 move container to workspace number 1: Web
+bindsym Mod4+Ctrl+2 move container to workspace number 2: Code
+bindsym Mod4+Ctrl+3 move container to workspace number 3: Code
+bindsym Mod4+Ctrl+4 move container to workspace number 4
+bindsym Mod4+Ctrl+5 move container to workspace number 5
+bindsym Mod4+Ctrl+6 move container to workspace number 6
+bindsym Mod4+Ctrl+7 move container to workspace number 7
+bindsym Mod4+Ctrl+8 move container to workspace number 8: Comms
+bindsym Mod4+Ctrl+9 move container to workspace number 9
+bindsym Mod4+Ctrl+h move workspace to output left
+bindsym Mod4+Ctrl+j move workspace to output down
+bindsym Mod4+Ctrl+k move workspace to output up
+bindsym Mod4+Ctrl+l move workspace to output right
+bindsym Mod4+Down focus down
+bindsym Mod4+Left focus left
+bindsym Mod4+Right focus right
+bindsym Mod4+Shift+0 move container to workspace number 10: Temp; workspace number 10: Temp
+bindsym Mod4+Shift+1 move container to workspace number 1: Web; workspace number 1: Web
+bindsym Mod4+Shift+2 move container to workspace number 2: Code; workspace number 2: Code
+bindsym Mod4+Shift+3 move container to workspace number 3: Code; workspace number 3: Code
+bindsym Mod4+Shift+4 move container to workspace number 4; workspace number 4
+bindsym Mod4+Shift+5 move container to workspace number 5; workspace number 5
+bindsym Mod4+Shift+6 move container to workspace number 6; workspace number 6
+bindsym Mod4+Shift+7 move container to workspace number 7; workspace number 7
+bindsym Mod4+Shift+8 move container to workspace number 8: Comms; workspace number 8: Comms
+bindsym Mod4+Shift+9 move container to workspace number 9; workspace number 9
+bindsym Mod4+Shift+Down move down
+bindsym Mod4+Shift+Left move left
+bindsym Mod4+Shift+Right move right
+bindsym Mod4+Shift+Up move up
+bindsym Mod4+Shift+a focus child
+bindsym Mod4+Shift+c reload
+bindsym Mod4+Shift+e exec i3-nagbar -t warning -m 'Logout?' -b 'Yes' 'i3-msg exit'
+bindsym Mod4+Shift+g gaps inner current minus 5
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+j move down
+bindsym Mod4+Shift+k move up
+bindsym Mod4+Shift+l move right
+bindsym Mod4+Shift+r restart
+bindsym Mod4+Shift+s sticky toggle
+bindsym Mod4+Shift+space floating toggle
+bindsym Mod4+Shift+v split h
+bindsym Mod4+Shift+z move container to workspace back_and_forth
+bindsym Mod4+Up focus up
+bindsym Mod4+a focus parent
+bindsym Mod4+comma layout stacking
+bindsym Mod4+d exec rofi -show drun -show-icons
+bindsym Mod4+f fullscreen toggle
+bindsym Mod4+g gaps inner current plus 5
+bindsym Mod4+h focus left
+bindsym Mod4+j focus down
+bindsym Mod4+k focus up
+bindsym Mod4+l focus right
+bindsym Mod4+m [class="TelegramDesktop" title="^Telegram.*"] scratchpad show
+bindsym Mod4+period layout tabbed
+bindsym Mod4+q kill
+bindsym Mod4+r mode resize
+bindsym Mod4+slash layout toggle split
+bindsym Mod4+space focus mode_toggle
+bindsym Mod4+v split v
+bindsym Mod4+z workspace back_and_forth
+
+mode "resize" {
+  bindsym Down resize shrink height 20
+  bindsym Escape mode default
+  bindsym Left resize shrink width 20
+  bindsym Return mode default
+  bindsym Right resize grow width 20
+  bindsym Up resize grow height 20
+}
+
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Blueberry.pi"] floating enable
+for_window [class=".blueman-manager-wrapped"] floating enable
+for_window [title="Event Tester"] floating enable
+for_window [class="KeePassXC"] floating enable
+for_window [instance="nm-connection-editor"] floating enable
+for_window [instance="keybase"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [class="TelegramDesktop" title="^Telegram.*"] move scratchpad
+exec_always --no-startup-id xmodmap -e 'remove Lock = BackSpace'
+exec_always --no-startup-id xmodmap -e 'keysym Caps_Lock = BackSpace'
+exec_always --no-startup-id nitrogen --set-zoom-fill ~/.background-image
+for_window [class=".*"] border pixel 0
+gaps top 36
+
+for_window [class=".blueman-applet-wrapped" title="realme.*"] kill
+for_window [class=".blueman-applet-wrapped" title="Connected"] kill
+
+exec --no-startup-id systemctl --user start desktop-session.target

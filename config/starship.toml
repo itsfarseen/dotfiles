@@ -1,0 +1,17 @@
+[git_commit]
+disabled = false
+
+[git_metrics]
+disabled = false
+
+[git_state]
+disabled = false
+
+[nodejs]
+disabled = true
+
+[package]
+disabled = true
+
+[rust]
+disabled = true

@@ -1,0 +1,11 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+ExecStart=/usr/bin/kdeconnect-indicator
+Restart=on-abort
+
+[Unit]
+After=tray.service
+Description=kdeconnect-indicator
+Requires=tray.service

@@ -1,0 +1,9 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+ExecStart=/usr/bin/sxhkd
+Restart=on-abort
+
+[Unit]
+Description=Simple X Hotkey Daemon

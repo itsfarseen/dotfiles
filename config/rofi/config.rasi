@@ -1,0 +1,7 @@
+configuration {
+location: 0;
+modi: "drun,ssh";
+xoffset: 0;
+yoffset: 0;
+}
+@theme "rofi"

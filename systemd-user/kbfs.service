@@ -1,0 +1,15 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+Environment=KEYBASE_SYSTEMD=1
+ExecStart=/usr/bin/kbfsfuse "%h/keybase"
+ExecStartPre=/usr/bin/mkdir -p "%h/keybase"
+ExecStopPost=/usr/bin/fusermount -u "%h/keybase"
+PrivateTmp=true
+Restart=on-failure
+
+[Unit]
+After=keybase.service
+Description=Keybase File System
+Requires=keybase.service

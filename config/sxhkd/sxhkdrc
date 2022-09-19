@@ -1,0 +1,36 @@
+Print
+  flameshot gui
+
+XF86AudioLowerVolume
+  pactl set-sink-volume @DEFAULT_SINK@ -3dB
+
+XF86AudioRaiseVolume
+  pactl set-sink-volume @DEFAULT_SINK@ +3dB
+
+super + F3
+  pavucontrol
+
+super + Return
+  alacritty
+
+super + d
+  rofi -show drun -show-icons
+
+super + e
+  pcmanfm
+
+super + p
+  /nix/store/0ibssav69vla6q6ff9s8khavsj8284yf-cycle-monitor/bin/cycle-monitor
+
+super + s
+  flameshot gui
+
+super + w
+  firefox
+
+super + {Escape,F1,F2}
+  xbacklight {-set 0.06,-5,+5}
+
+{XF86KbdBrightnessDown, XF86KbdBrightnessUp}
+  asusctl {-p,-n}
+

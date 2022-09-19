@@ -1,0 +1,10 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+ExecStart=/usr/bin/syncthingtray
+
+[Unit]
+After=tray.target
+Description=syncthingtray
+Requires=tray.target

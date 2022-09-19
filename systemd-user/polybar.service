@@ -1,0 +1,10 @@
+[Install]
+WantedBy=tray.target
+
+[Service]
+ExecStart=/usr/bin/polybar main
+Restart=on-failure
+
+[Unit]
+Description=Polybar status bar
+PartOf=tray.target

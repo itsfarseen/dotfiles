@@ -1,0 +1,10 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+ExecStart=/usr/bin/keybase service --auto-forked
+PrivateTmp=true
+Restart=on-failure
+
+[Unit]
+Description=Keybase service

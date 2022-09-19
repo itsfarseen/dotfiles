@@ -1,0 +1,9 @@
+[Install]
+WantedBy=desktop-session.target
+
+[Service]
+ExecStart=/usr/bin/xsettingsd
+Restart=on-abort
+
+[Unit]
+Description=xsettingsd
