@@ -116,5 +116,6 @@ gaps top 36
 
 for_window [class=".blueman-applet-wrapped" title="realme.*"] kill
 for_window [class=".blueman-applet-wrapped" title="Connected"] kill
+for_window [class="keybase"] floating enable
 
 exec --no-startup-id systemctl --user start desktop-session.target

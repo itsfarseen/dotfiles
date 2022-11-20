@@ -38,12 +38,12 @@ local on_attach = function(client, bufnr)
 	-- buf_set_keymap("n", "<space>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd("nnoremap <silent><buffer> <Leader>ff :lua vim.lsp.buf.formatting()<CR>")
-		vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting_sync()")
+	if client.server_capabilities.documentFormattingProvider then
+		vim.cmd("nnoremap <silent><buffer> <Leader>ff :lua vim.lsp.buf.format()<CR>")
+		vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
 	end
 
-	if client.resolved_capabilities.document_range_formatting then
+	if client.server_capabilities.documentRangeFormattingProvider then
 		vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
 	end
 end

@@ -12,7 +12,14 @@ return function(use)
 			require("rust-tools").setup({
 				tools = { autoSetHints = true, inlay_hints = { only_current_line = false } },
 				server = {
-					on_attach = on_attach
+					on_attach = on_attach,
+					settings = {
+						["rust-analyzer"] = {
+							cargo = {
+								-- features = {"test-bpf"},
+							},
+						},
+					},
 				},
 			})
 		end,

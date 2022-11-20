@@ -3,7 +3,7 @@ WantedBy=tray.target
 
 [Service]
 ExecStart=/usr/bin/polybar main
-Restart=on-failure
+Restart=always
 
 [Unit]
 Description=Polybar status bar

@@ -22,11 +22,13 @@ local plugins = {
 	{
 		"tversteeg/registers.nvim",
 		config = function()
-			vim.g.registers_normal_mode = 0
-			vim.g.registers_visual_mode = 0
+			local registers = require("registers")
+			registers.setup({
+				show_empty = false,
+			})
 		end,
 	},
-	{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
+		{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
 	"tpope/vim-abolish", -- Find/Replace variants of a word
 	"axvr/zepl.vim", -- Iron REPL
 	{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
@@ -42,6 +44,7 @@ local pluginsExt = {
 	"nvim-tree",
 	"gitsigns",
 	"treesitter",
+	"nvim-ufo",
 	"cmp",
 	"prettier",
 };
@@ -54,12 +57,28 @@ local configs = {
 	"lsp-config",
 };
 
+local ensure_packer = function()
+	local fn = vim.fn
+	local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+		vim.cmd [[packadd packer.nvim]]
+		return true
+	end
+	return false
+end
+
+local packer_bootstrap = ensure_packer()
+
 require("packer").startup(function(use)
 	for _, v in ipairs(plugins) do
 		use(v);
 	end
 	for _, plugin in ipairs(pluginsExt) do
 		require("plugins." .. plugin)(use);
+	end
+	if packer_bootstrap then
+		require('packer').sync()
 	end
 end);
 

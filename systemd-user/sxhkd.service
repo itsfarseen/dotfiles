@@ -3,7 +3,7 @@ WantedBy=desktop-session.target
 
 [Service]
 ExecStart=/usr/bin/sxhkd
-Restart=on-abort
+Restart=always
 
 [Unit]
 Description=Simple X Hotkey Daemon

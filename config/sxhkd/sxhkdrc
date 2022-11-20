@@ -20,7 +20,7 @@ super + e
   pcmanfm
 
 super + p
-  /nix/store/0ibssav69vla6q6ff9s8khavsj8284yf-cycle-monitor/bin/cycle-monitor
+  $HOME/.config/sxhkd/cycle-monitor; sleep 1s; i3-msg restart; sleep 0.5s; systemctl --user restart polybar; 
 
 super + s
   flameshot gui
@@ -31,6 +31,6 @@ super + w
 super + {Escape,F1,F2}
   xbacklight {-set 0.06,-5,+5}
 
-{XF86KbdBrightnessDown, XF86KbdBrightnessUp}
-  asusctl {-p,-n}
+#super + {XF86KbdBrightnessDown, XF86KbdBrightnessUp}
+#  asusctl {-p,-n}
 

@@ -37,14 +37,14 @@
   },
   "env": {
     # Needed for my 4k 32inch monitor
-    "WINIT_X11_SCALE_FACTOR": "2",
+    # "WINIT_X11_SCALE_FACTOR": "2",
     "TERM": "xterm-256color"
   },
   "font": {
     "normal": {
       "family": "Iosevka"
     },
-    "size": 7
+    "size": 14
   },
   "key_bindings": [
     {
