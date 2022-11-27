@@ -15,3 +15,6 @@ disabled = true
 
 [rust]
 disabled = true
+
+[container]
+disabled = true
