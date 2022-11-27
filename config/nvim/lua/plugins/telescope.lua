@@ -14,6 +14,7 @@ return function(use)
 				nnoremap <leader>fs <cmd>Telescope lsp_document_symbols<cr>
 				nnoremap <leader>fS <cmd>Telescope lsp_workspace_symbols<cr>
 				nnoremap <leader>fa <cmd>lua vim.lsp.buf.code_action()<cr>
+				vnoremap <leader>fa <cmd>lua vim.lsp.buf.code_action({range=nil})<cr>
 				nnoremap <leader>fe <cmd>Telescope diagnostics<cr>
 				nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
 				nnoremap <leader>fD <cmd>Telescope lsp_type_definitions<cr>
