@@ -18,6 +18,7 @@ for i in ./share/*; do
 	ln -nsf $(realpath $i) $HOME/.local/share/$(basename $i);
 done;
 
+mkdir -p $HOME/.local/bin
 for i in ./bin/*; do
 	ln -nsf $(realpath $i) $HOME/.local/bin/$(basename $i);
 done;
