@@ -36,7 +36,6 @@ alias zc 'z -c'
 alias zt 'z -t'
 
 direnv hook fish | source
-lua /usr/share/z.lua/z.lua --init fish | source
 starship init fish | source
 
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
@@ -46,4 +45,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 export EDITOR=nvim
 
-source /usr/share/doc/pkgfile/command-not-found.fish
+if test -e /etc/arch-release
+	lua /usr/share/z.lua/z.lua --init fish | source
+	source /usr/share/doc/pkgfile/command-not-found.fish
+end
