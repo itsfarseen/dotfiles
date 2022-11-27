@@ -5,7 +5,13 @@ cd $(dirname $0)
 ./home/install.sh
 
 for i in ./config/*; do
-	ln -nsf $(realpath $i) $HOME/.config/$(basename $i);
+	target=$HOME/.config/$(basename $i);
+	if [ -d "$target" ] && [ ! -L "$target" ]; then
+		echo "Warning: $target exists".
+		echo "Remove it and run install.sh again to copy this folder.";
+	else
+		ln -nsf $(realpath $i) $HOME/.config/$(basename $i);
+	fi;
 done;
 
 for i in ./share/*; do
