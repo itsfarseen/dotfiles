@@ -39,7 +39,6 @@ direnv hook fish | source
 starship init fish | source
 
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 export QT_QPA_PLATFORMTHEME=qt5ct
 
