@@ -34,6 +34,13 @@
     lxappearance
     gnome.gnome-tweaks
     (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
+    git
+  ];
+
+  imports = [
+    ./shells.nix
+    ./aliases.nix
+    ./tmux.nix
   ];
 
   # Let Home Manager install and manage itself.
