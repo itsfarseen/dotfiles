@@ -23,4 +23,7 @@ for i in ./bin/*; do
 	ln -nsf $(realpath $i) $HOME/.local/bin/$(basename $i);
 done;
 
+# ~/.config (custom)
 
+mkdir -p ~/.config/xfce4
+ln -nsf ./config-custom/xfce4-terminalrc ~/.config/xfce4/terminalrc
