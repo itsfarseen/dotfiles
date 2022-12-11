@@ -30,6 +30,10 @@
     tmux
     nix-index
     dolphin-emu
+    lagrange
+    lxappearance
+    gnome.gnome-tweaks
+    (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
   ];
 
   # Let Home Manager install and manage itself.
