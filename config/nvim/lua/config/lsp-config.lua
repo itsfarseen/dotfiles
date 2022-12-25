@@ -7,9 +7,15 @@ local merge = function(a, b)
 	return c
 end
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+	dynamicRegistration = false,
+	lineFoldingOnly = true
+}
+
 local common_setup = {
 	on_attach = on_attach,
-	-- capabilities = capabilities,
+	capabilities = capabilities,
 	-- handlers = handlers,
 	flags = {
 		debounce_text_changes = 150,
