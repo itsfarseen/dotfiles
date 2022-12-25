@@ -74,6 +74,11 @@ require("packer").startup(function(use)
 	for _, v in ipairs(plugins) do
 		use(v);
 	end
+	-- nvim-ufo must come after lsp-config
+	for _, v in ipairs(configs) do
+		require("config." .. v)
+	end
+	--
 	for _, plugin in ipairs(pluginsExt) do
 		require("plugins." .. plugin)(use);
 	end
@@ -82,9 +87,6 @@ require("packer").startup(function(use)
 	end
 end);
 
-for _, v in ipairs(configs) do
-	require("config." .. v)
-end
 
 -- Show documentation (K) {{{
 -- vim.api.nvim_set_keymap("n", "K", ":lua ShowDocumentation()<cr>", { noremap = true, silent = true })
