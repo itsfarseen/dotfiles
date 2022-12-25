@@ -19,12 +19,12 @@ return function(use)
 				end
 			end)
 
-			-- Make lsp the main provider, treesitter the fallback
+			-- Make lsp the main provider, indent the fallback
 			require('ufo').setup({
 				provider_selector = function(bufnr, filetype, buftype)
 					return {
 						'lsp',
-						'treesitter',
+						'indent',
 					}
 				end
 			})
