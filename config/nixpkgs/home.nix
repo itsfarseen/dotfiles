@@ -57,6 +57,8 @@ in
     nix-index
     (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
     git
+    silver-searcher
+    obsidian
   ] ++ machine-config.home.packages;
 
   home.sessionVariables = {
