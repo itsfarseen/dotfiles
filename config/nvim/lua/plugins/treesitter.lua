@@ -56,11 +56,6 @@ return function(use)
 				}
 			}
 
-			vim.cmd([[
-				set foldmethod=expr
-				set foldexpr=nvim_treesitter#foldexpr()
-			]])
-
 		end
 	};
 end
