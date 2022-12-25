@@ -28,7 +28,7 @@ local plugins = {
 			})
 		end,
 	},
-		{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
+	{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
 	"tpope/vim-abolish", -- Find/Replace variants of a word
 	"axvr/zepl.vim", -- Iron REPL
 	{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
