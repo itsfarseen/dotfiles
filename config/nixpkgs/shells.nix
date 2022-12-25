@@ -18,13 +18,5 @@
     package.disabled = true;
     container.disabled = true;
   };
-
-  home.packages = with pkgs; [
-    exa
-  ];
-
-  home.shellAliases = {
-    "ls" = "exa --icons --group-directories-first";
-  };
 }
 

@@ -54,9 +54,17 @@
   };
 
   programs.z-lua.enable = true;
-  home.shellAliases = { 
+  home.shellAliases = {
     "zc" = "z -c"; # z but only under $PWD
     "zt" = "z -t"; # recent instead of frecent
     "zb" = "z -b"; # search backwards
-  }; 
+  };
+
+  home.packages = with pkgs; [
+    exa
+  ];
+
+  home.shellAliases = {
+    "ls" = "exa --icons --group-directories-first";
+  };
 }
