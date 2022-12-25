@@ -24,6 +24,7 @@
     glg = "git log";
     # nix
     hms = "home-manager switch";
+    hme = "vim ~/.config/nixpkgs/home.nix";
     nxsw = "sudo nixos-rebuild switch";
     nxs = "nix search nixpkgs";
     # cd
