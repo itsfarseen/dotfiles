@@ -52,7 +52,6 @@ in
 
     ripgrep
     rnix-lsp
-    starship
     tmux
     nix-index
     (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
