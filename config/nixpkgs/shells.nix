@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 {
   programs.bash.enable = true;
+
   programs.fish.enable = true;
+  programs.fish.interactiveShellInit = "
+    set -U fish_greeting
+  ";
 
   programs.bash.initExtra = "
     exec fish
