@@ -39,7 +39,7 @@ local lsps = {
 		},
 	},
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" }, },
-	sumneko_lua = {
+	lua_ls = {
 		settings = {
 			Lua = {
 				runtime = {
