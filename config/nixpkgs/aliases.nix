@@ -67,4 +67,8 @@
   home.shellAliases = {
     "ls" = "exa --icons --group-directories-first";
   };
+
+  home.sessionPath = [
+    "$HOME/.local/share/solana/install/active_release/bin"
+  ];
 }
