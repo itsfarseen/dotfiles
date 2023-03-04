@@ -2,7 +2,7 @@
 
 local plugins = {
 		'wbthomason/packer.nvim',
-		"folke/neoconf.nvim",
+		{ "folke/neoconf.nvim",   config = function() require("neoconf").setup({}) end },
 		-- Colorscheme
 		"stevearc/dressing.nvim",
 		-- LSP Config
@@ -13,7 +13,7 @@ local plugins = {
 		"nvim-lua/plenary.nvim",
 		"akinsho/flutter-tools.nvim",
 		-- Bufdelete
-		{ "famiu/bufdelete.nvim",  config = function() vim.cmd([[ nnoremap <leader>x :Bdelete<CR> ]]) end },
+		{ "famiu/bufdelete.nvim", config = function() vim.cmd([[ nnoremap <leader>x :Bdelete<CR> ]]) end },
 		-- Surround
 		{
 				"ur4ltz/surround.nvim",
@@ -29,7 +29,7 @@ local plugins = {
 					})
 				end,
 		},
-		{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
+		{ "numToStr/Comment.nvim",                   config = function() require("Comment").setup() end },
 		"tpope/vim-abolish", -- Find/Replace variants of a word
 		"axvr/zepl.vim", -- Iron REPL
 		{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
