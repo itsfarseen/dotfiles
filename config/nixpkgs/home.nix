@@ -63,6 +63,7 @@ in
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    QT_QPA_PLATFORM = "wayland";
   };
 
   # This value determines the Home Manager release that your
