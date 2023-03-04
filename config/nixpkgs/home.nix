@@ -30,6 +30,7 @@ in
     ./shells.nix
     ./aliases.nix
     ./tmux.nix
+    ./nix-direnv.nix
   ];
 
   home.username = machine-config.home.username;
