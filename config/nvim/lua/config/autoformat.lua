@@ -1,8 +1,8 @@
 FormatBuf = function()
-	local clients = vim.lsp.buf_get_clients();
-	if #clients > 0 then
-		vim.lsp.buf.formatting_sync()
-	end
+    local clients = vim.lsp.buf_get_clients();
+    if #clients > 0 then
+        vim.lsp.buf.formatting_sync()
+    end
 end
 
 vim.cmd([[
