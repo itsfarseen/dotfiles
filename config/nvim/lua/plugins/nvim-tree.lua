@@ -18,10 +18,10 @@ return function(use)
 						},
 				})
 				vim.cmd([[
-			 nnoremap <leader>e <cmd>NvimTreeOpen<cr><cmd>NvimTreeFocus<cr>
-			 nnoremap <leader>E <cmd>NvimTreeClose<cr>
-			 nnoremap <leader>o <c-w><c-p>
-		 ]])
+				 nnoremap <leader>e <cmd>NvimTreeOpen<cr><cmd>NvimTreeFocus<cr>
+				 nnoremap <leader>E <cmd>NvimTreeClose<cr>
+				 nnoremap <leader>o <c-w><c-p>
+			 ]])
 			end,
 	};
 end

@@ -28,6 +28,7 @@ return function(use)
 							}
 						end
 				})
-			end
+			end,
+			after = "nvim-lspconfig",
 	}
 end

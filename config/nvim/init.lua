@@ -2,18 +2,25 @@
 
 local plugins = {
 		'wbthomason/packer.nvim',
-		{ "folke/neoconf.nvim",   config = function() require("neoconf").setup({}) end },
+		{ "folke/neoconf.nvim", },
 		-- Colorscheme
 		"stevearc/dressing.nvim",
 		-- LSP Config
-		"neovim/nvim-lspconfig",
+		{
+				"neovim/nvim-lspconfig",
+				config = function()
+					require("neoconf").setup()
+					require("config.lsp-config")
+				end,
+				after = "neoconf.nvim"
+		},
 		-- Lua formatter
 		"ckipp01/stylua-nvim",
 		-- Flutter
 		"nvim-lua/plenary.nvim",
 		"akinsho/flutter-tools.nvim",
 		-- Bufdelete
-		{ "famiu/bufdelete.nvim", config = function() vim.cmd([[ nnoremap <leader>x :Bdelete<CR> ]]) end },
+		{ "famiu/bufdelete.nvim",  config = function() vim.cmd([[ nnoremap <leader>x :Bdelete<CR> ]]) end },
 		-- Surround
 		{
 				"ur4ltz/surround.nvim",
@@ -29,7 +36,7 @@ local plugins = {
 					})
 				end,
 		},
-		{ "numToStr/Comment.nvim",                   config = function() require("Comment").setup() end },
+		{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
 		"tpope/vim-abolish", -- Find/Replace variants of a word
 		"axvr/zepl.vim", -- Iron REPL
 		{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
@@ -55,7 +62,6 @@ local pluginsExt = {
 local configs = {
 		"basic",
 		-- "autoformat", -- commented in favor of lsp-keybindings.lua
-		"lsp-config",
 };
 
 local ensure_packer = function()
@@ -75,13 +81,11 @@ require("packer").startup(function(use)
 	for _, v in ipairs(plugins) do
 		use(v);
 	end
-	-- nvim-ufo must come after lsp-config
-	for _, v in ipairs(configs) do
-		require("config." .. v)
-	end
-	--
 	for _, plugin in ipairs(pluginsExt) do
 		require("plugins." .. plugin)(use);
+	end
+	for _, v in ipairs(configs) do
+		require("config." .. v)
 	end
 	if packer_bootstrap then
 		require('packer').sync()

@@ -10,7 +10,10 @@ return function(use)
 			"simrat39/rust-tools.nvim",
 			config = function()
 				require("rust-tools").setup({
-						tools = { autoSetHints = true, inlay_hints = { only_current_line = false } },
+						tools = {
+								autoSetHints = true,
+								inlay_hints = { only_current_line = false },
+						},
 						server = {
 								on_attach = on_attach,
 								settings = {
@@ -23,5 +26,6 @@ return function(use)
 						},
 				})
 			end,
+			after = "nvim-lspconfig",
 	};
 end
