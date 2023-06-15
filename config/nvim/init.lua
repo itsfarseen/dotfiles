@@ -2,6 +2,7 @@
 
 local plugins = {
 	'wbthomason/packer.nvim',
+	{ "folke/neodev.nvim" },
 	{ "folke/neoconf.nvim", },
 	-- Colorscheme
 	"stevearc/dressing.nvim",
