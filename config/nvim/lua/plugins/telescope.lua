@@ -1,7 +1,7 @@
 return function(use)
 	use {
 			"nvim-telescope/telescope.nvim",
-			requires = { "nvim-lua/plenary.nvim" },
+			dependencies = { "nvim-lua/plenary.nvim" },
 			config = function()
 				vim.cmd([[
 					nnoremap <c-p> <cmd>Telescope find_files<cr>

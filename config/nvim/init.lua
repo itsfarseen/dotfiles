@@ -1,5 +1,19 @@
 -- vim:foldmethod=marker:
 
+-- bootstrap "lazy"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
 local plugins = {
 	'wbthomason/packer.nvim',
 	{ "folke/neodev.nvim" },
@@ -39,7 +53,7 @@ local plugins = {
 	},
 	{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
 	"tpope/vim-abolish", -- Find/Replace variants of a word
-	"axvr/zepl.vim",     -- Iron REPL
+	"axvr/zepl.vim",    -- Iron REPL
 	{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
 	"github/copilot.vim",
 };
@@ -60,39 +74,20 @@ local pluginsExt = {
 
 -- iterate through configs
 
-local configs = {
-	"basic",
-	-- "autoformat", -- commented in favor of lsp-keybindings.lua
-};
+require("config.basic")
 
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-		vim.cmd [[packadd packer.nvim]]
-		return true
-	end
-	return false
+local final_plugins = {}
+
+local function use(x) table.insert(final_plugins, x) end
+
+for _, v in ipairs(plugins) do
+	use(v);
+end
+for _, plugin in ipairs(pluginsExt) do
+	require("plugins." .. plugin)(use);
 end
 
-local packer_bootstrap = ensure_packer()
-
-require("packer").startup(function(use)
-	for _, v in ipairs(plugins) do
-		use(v);
-	end
-	for _, plugin in ipairs(pluginsExt) do
-		require("plugins." .. plugin)(use);
-	end
-	for _, v in ipairs(configs) do
-		require("config." .. v)
-	end
-	if packer_bootstrap then
-		require('packer').sync()
-	end
-end);
-
+require("lazy").setup(final_plugins)
 
 -- Show documentation (K) {{{
 -- vim.api.nvim_set_keymap("n", "K", ":lua ShowDocumentation()<cr>", { noremap = true, silent = true })

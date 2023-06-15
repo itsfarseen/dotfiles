@@ -3,7 +3,7 @@ on_attach = require("config.lsp-keybindings").on_attach;
 return function(use)
 	use({
 		'MunifTanjim/prettier.nvim',
-		requires = { 'jose-elias-alvarez/null-ls.nvim' },
+		dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
 		config = function()
 			require("null-ls").setup({
 				on_attach = on_attach,

@@ -1,7 +1,7 @@
 return function(use)
 	use {
 			"lewis6991/gitsigns.nvim",
-			requires = {
+			dependencies = {
 					"nvim-lua/plenary.nvim",
 			},
 			config = function()

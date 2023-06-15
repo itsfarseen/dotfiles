@@ -3,7 +3,7 @@ on_attach = require("config.lsp-keybindings").on_attach;
 return function(use)
 	use {
 		"saecki/crates.nvim",
-		requires = { 'nvim-lua/plenary.nvim' },
+		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function() require("crates").setup() end
 	};
 	use {
