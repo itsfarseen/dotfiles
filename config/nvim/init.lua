@@ -1,67 +1,67 @@
 -- vim:foldmethod=marker:
 
 local plugins = {
-		'wbthomason/packer.nvim',
-		{ "folke/neoconf.nvim", },
-		-- Colorscheme
-		"stevearc/dressing.nvim",
-		-- LSP Config
-		{
-				"neovim/nvim-lspconfig",
-				config = function()
-					require("neoconf").setup()
-					require("config.lsp-config")
-				end,
-				after = "neoconf.nvim"
-		},
-		-- Lua formatter
-		"ckipp01/stylua-nvim",
-		-- Flutter
-		"nvim-lua/plenary.nvim",
-		"akinsho/flutter-tools.nvim",
-		-- Bufdelete
-		{ "famiu/bufdelete.nvim",  config = function() vim.cmd([[ nnoremap <leader>x :Bdelete<CR> ]]) end },
-		-- Surround
-		{
-				"ur4ltz/surround.nvim",
-				config = function() require("surround").setup({ mappings_style = "sandwich", space_on_closing_char = true }) end,
-		},
-		-- Registers
-		{
-				"tversteeg/registers.nvim",
-				config = function()
-					local registers = require("registers")
-					registers.setup({
-							show_empty = false,
-					})
-				end,
-		},
-		{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
-		"tpope/vim-abolish", -- Find/Replace variants of a word
-		"axvr/zepl.vim", -- Iron REPL
-		{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
-		"github/copilot.vim",
+	'wbthomason/packer.nvim',
+	{ "folke/neoconf.nvim", },
+	-- Colorscheme
+	"stevearc/dressing.nvim",
+	-- LSP Config
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("neoconf").setup()
+			require("config.lsp-config")
+		end,
+		after = "neoconf.nvim"
+	},
+	-- Lua formatter
+	"ckipp01/stylua-nvim",
+	-- Flutter
+	"nvim-lua/plenary.nvim",
+	"akinsho/flutter-tools.nvim",
+	-- Bufdelete
+	{ "famiu/bufdelete.nvim",  config = function() vim.cmd([[ nnoremap <leader>x :Bdelete<CR> ]]) end },
+	-- Surround
+	{
+		"ur4ltz/surround.nvim",
+		config = function() require("surround").setup({ mappings_style = "sandwich", space_on_closing_char = true }) end,
+	},
+	-- Registers
+	{
+		"tversteeg/registers.nvim",
+		config = function()
+			local registers = require("registers")
+			registers.setup({
+				show_empty = false,
+			})
+		end,
+	},
+	{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
+	"tpope/vim-abolish", -- Find/Replace variants of a word
+	"axvr/zepl.vim",     -- Iron REPL
+	{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
+	"github/copilot.vim",
 };
 
 local pluginsExt = {
-		"lualine",
-		"rust",
-		"colorscheme",
-		"telescope",
-		"filetypes",
-		"nvim-tree",
-		"gitsigns",
-		"treesitter",
-		"nvim-ufo",
-		"cmp",
-		"prettier",
+	"lualine",
+	"rust",
+	"colorscheme",
+	"telescope",
+	"filetypes",
+	"nvim-tree",
+	"gitsigns",
+	"treesitter",
+	"nvim-ufo",
+	"cmp",
+	"prettier",
 };
 
 -- iterate through configs
 
 local configs = {
-		"basic",
-		-- "autoformat", -- commented in favor of lsp-keybindings.lua
+	"basic",
+	-- "autoformat", -- commented in favor of lsp-keybindings.lua
 };
 
 local ensure_packer = function()
@@ -128,24 +128,24 @@ end);
 
 
 local border = {
-		{ "🭽", "FloatBorder" },
-		{ "▔",  "FloatBorder" },
-		{ "🭾", "FloatBorder" },
-		{ "▕",  "FloatBorder" },
-		{ "🭿", "FloatBorder" },
-		{ "▁",  "FloatBorder" },
-		{ "🭼", "FloatBorder" },
-		{ "▏",  "FloatBorder" },
+	{ "🭽", "FloatBorder" },
+	{ "▔",  "FloatBorder" },
+	{ "🭾", "FloatBorder" },
+	{ "▕",  "FloatBorder" },
+	{ "🭿", "FloatBorder" },
+	{ "▁",  "FloatBorder" },
+	{ "🭼", "FloatBorder" },
+	{ "▏",  "FloatBorder" },
 }
 
 -- LSP settings (for overriding per client)
 local handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
 
 
 -- To highlight codefences returned from denols
 vim.g.markdown_fenced_languages = {
-		"ts=typescript"
+	"ts=typescript"
 }
