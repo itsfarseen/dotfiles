@@ -1,11 +1,15 @@
 return function(use)
 	use {
-			"folke/tokyonight.nvim",
-			config = function()
-				vim.g.tokyonight_transparent = false
-				vim.g.tokyonight_dark_sidebar = true
-				vim.g.tokyonight_style = "storm"
-				vim.cmd("colorscheme tokyonight")
-			end,
+		"folke/tokyonight.nvim",
+		config = function()
+			require("tokyonight").setup({
+				style = "night",
+				transparent = false,
+				styles = {
+					sidebars = "dark",
+				}
+			})
+			vim.cmd("colorscheme tokyonight")
+		end,
 	};
 end

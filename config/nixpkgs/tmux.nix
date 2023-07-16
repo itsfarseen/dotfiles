@@ -20,7 +20,7 @@
       # set -g status-left "#S (#(pwd)) "
       set -g status-left "  #[fg=red]#S  "
       set -g status-right "#T  #[fg=green]#(pwd)  #[fg=red]%c"
-      set-option -g status-bg "#24283b"
+      set-option -g status-bg "#1a1b26"
       set-option -g status-fg "#d2a6ff"
 
       set -g status-justify left
@@ -66,6 +66,28 @@
 
       bind-key -n M-c attach-session -c "#{pane_current_path}"
       bind-key -n M-[ copy-mode
+
+
+      # TokyoNight colors for Tmux
+
+      set -g mode-style "fg=#7aa2f7,bg=#3b4261"
+
+      set -g message-style "fg=#7aa2f7,bg=#3b4261"
+      set -g message-command-style "fg=#7aa2f7,bg=#3b4261"
+
+      set -g pane-border-style "fg=#3b4261"
+      set -g pane-active-border-style "fg=#7aa2f7"
+
+      set -g status "on"
+      set -g status-justify "left"
+
+      set -g status-style "fg=#7aa2f7,bg=#16161e"
+
+      set -g status-left-length "100"
+      set -g status-right-length "100"
+
+      set -g status-left-style NONE
+      set -g status-right-style NONE
     '';
   };
 }
