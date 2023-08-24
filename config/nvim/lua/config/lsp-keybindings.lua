@@ -40,7 +40,7 @@ local on_attach = function(client, bufnr)
 
 	if client.server_capabilities.documentFormattingProvider then
 		vim.cmd("nnoremap <silent><buffer> <Leader>ff :lua vim.lsp.buf.format()<CR>")
-		vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
+		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 5000})")
 	end
 
 	if client.server_capabilities.documentRangeFormattingProvider then
