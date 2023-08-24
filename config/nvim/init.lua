@@ -70,6 +70,7 @@ local pluginsExt = {
 	"nvim-ufo",
 	"cmp",
 	"prettier",
+	"black-python",
 };
 
 -- iterate through configs
