@@ -56,6 +56,12 @@ local plugins = {
 	"axvr/zepl.vim",    -- Iron REPL
 	{ 'nvim-treesitter/nvim-treesitter-context', config = function() require("treesitter-context").setup() end },
 	"github/copilot.vim",
+	{
+		"ray-x/lsp_signature.nvim", -- get lsp function hints as you type
+		event = "VeryLazy",
+		opts = {},
+		config = function(_, opts) require 'lsp_signature'.setup(opts) end
+	}
 };
 
 local pluginsExt = {
