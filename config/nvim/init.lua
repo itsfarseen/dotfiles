@@ -15,7 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	'wbthomason/packer.nvim',
 	{ "folke/neodev.nvim" },
 	{ "folke/neoconf.nvim", },
 	-- Colorscheme
