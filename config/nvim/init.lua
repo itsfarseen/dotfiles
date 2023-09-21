@@ -151,3 +151,5 @@ local handlers = {
 vim.g.markdown_fenced_languages = {
 	"ts=typescript"
 }
+
+vim.g.python3_host_prog = "/usr/bin/python3"
