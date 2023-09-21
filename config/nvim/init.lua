@@ -131,13 +131,13 @@ require("lazy").setup(final_plugins)
 
 local border = {
 	{ "🭽", "FloatBorder" },
-	{ "▔",  "FloatBorder" },
+	{ "▔", "FloatBorder" },
 	{ "🭾", "FloatBorder" },
-	{ "▕",  "FloatBorder" },
+	{ "▕", "FloatBorder" },
 	{ "🭿", "FloatBorder" },
-	{ "▁",  "FloatBorder" },
+	{ "▁", "FloatBorder" },
 	{ "🭼", "FloatBorder" },
-	{ "▏",  "FloatBorder" },
+	{ "▏", "FloatBorder" },
 }
 
 -- LSP settings (for overriding per client)
