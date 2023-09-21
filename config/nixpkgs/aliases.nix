@@ -70,5 +70,6 @@
 
   home.sessionPath = [
     "$HOME/.local/share/solana/install/active_release/bin"
+    "$HOME/.ghcup/bin"
   ];
 }
