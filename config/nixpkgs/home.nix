@@ -14,6 +14,16 @@ let
         glibcLocales
         lagrange
         foot
+        neovim
+
+        # Need this for the treesitter parsers to work.
+        # If you already had them compiled using non-nix gcc, you will have to
+        # recompile them using nix's gcc.
+        # Otherwise they will throw libstdc++.so.6 not found errors.
+        # Remove ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/*.so
+        # and restart neovim to recompile the parsers.
+        gcc
+
       ];
     };
     "zephyrus-g15-2021" = {
@@ -41,16 +51,6 @@ in
     fd
     fish
     lua
-    neovim
-
-    # Need this for the treesitter parsers to work.
-    # If you already had them compiled using non-nix gcc, you will have to
-    # recompile them using nix's gcc.
-    # Otherwise they will throw libstdc++.so.6 not found errors.
-    # Remove ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter/parser/*.so
-    # and restart neovim to recompile the parsers.
-    gcc
-
     ripgrep
     rnix-lsp
     tmux
