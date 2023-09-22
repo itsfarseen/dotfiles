@@ -61,7 +61,7 @@ in
     rnix-lsp
     tmux
     nix-index
-    (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
+    # (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
     git
     silver-searcher
     obsidian
