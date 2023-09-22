@@ -25,12 +25,13 @@ local common_setup = {
 }
 
 local lsps = {
+	"denols",
 	"dhall_lsp_server",
 	"gopls",
-	-- "jedi_language_server",
 	"pyright",
 	"rnix",
 	"svelte",
+	"tsserver",
 	"volar",
 	"ccls",
 	"tailwindcss",
@@ -38,7 +39,6 @@ local lsps = {
 		root_dir = root_pattern("deno.json", "deno.jsonc")
 	},
 	hls = {
-		-- cmd = { "haskell-language-server", "--lsp" },
 		settings = {
 			haskell = { formattingProvider = "fourmolu" },
 		},
