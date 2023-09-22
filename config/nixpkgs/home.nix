@@ -32,6 +32,12 @@ let
       home.packages = with pkgs; [
       ];
     };
+    "fermium-pico" = {
+      home.username = "farseen";
+      home.homeDirectory = "/home/farseen";
+      home.packages = with pkgs; [
+      ];
+    };
   };
   machine-config = machine-specific.${machine-name};
 in
