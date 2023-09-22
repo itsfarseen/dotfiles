@@ -6,10 +6,11 @@
     plugins = [
       pkgs.tmuxPlugins.better-mouse-mode
     ];
+    terminal = "tmux-256color";
     extraConfig = ''
       # vi:foldmethod=marker
-      set -g default-terminal xterm-256color
-      set -ga terminal-overrides ",*256col*:Tc"
+      set -ga terminal-overrides ",foot:Tc"
+      set -ga terminal-overrides ",alacritty:Tc"
       set -g default-command "exec $SHELL"
       # set-window-option -g mode-keys vi
 
