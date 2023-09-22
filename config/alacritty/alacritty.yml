@@ -45,6 +45,11 @@ key_bindings: [
     "action": "SpawnNewInstance",
     "key": "N",
     "mods": "Control|Shift"
+  },
+  {
+    "key": "N",
+    "mods": "Super"
+    "action": "\x1bn",
   }
 ]
 scrolling: {
