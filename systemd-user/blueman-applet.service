@@ -1,9 +1,0 @@
-[Install]
-WantedBy=desktop-session.target
-
-[Service]
-ExecStart=/usr/bin/blueman-applet
-
-[Unit]
-Description=Blueman applet
-Requires=tray.target

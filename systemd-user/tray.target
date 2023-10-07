@@ -1,3 +1,0 @@
-[Unit]
-Description=System Tray
-WantedBy=desktop-session.target
