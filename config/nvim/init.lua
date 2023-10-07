@@ -50,8 +50,8 @@ local plugins = {
 		end,
 	},
 	{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
-	"tpope/vim-abolish", -- Find/Replace variants of a word
-	"axvr/zepl.vim",    -- Iron REPL
+	"tpope/vim-abolish",        -- Find/Replace variants of a word
+	"axvr/zepl.vim",            -- Iron REPL
 	{
 		"ray-x/lsp_signature.nvim", -- get lsp function hints as you type
 		event = "VeryLazy",
