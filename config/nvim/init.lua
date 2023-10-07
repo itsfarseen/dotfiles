@@ -17,8 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 	{ "folke/neodev.nvim" },
 	{ "folke/neoconf.nvim", },
-	-- Colorscheme
-	"stevearc/dressing.nvim",
+	{ "stevearc/dressing.nvim" },
 	-- LSP Config
 	{
 		"neovim/nvim-lspconfig",
