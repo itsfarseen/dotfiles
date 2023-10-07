@@ -1,0 +1,33 @@
+# vim:ft=swayconfig:
+
+bindsym Mod4+Up focus up
+bindsym Mod4+Down focus down
+bindsym Mod4+Left focus left
+bindsym Mod4+Right focus right
+
+bindsym Mod4+Shift+Up move up
+bindsym Mod4+Shift+Down move down
+bindsym Mod4+Shift+Left move left
+bindsym Mod4+Shift+Right move right
+
+bindsym Mod4+h focus left
+bindsym Mod4+j focus down
+bindsym Mod4+k focus up
+bindsym Mod4+l focus right
+
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+j move down
+bindsym Mod4+Shift+k move up
+bindsym Mod4+Shift+l move right
+
+bindsym Mod4+a focus parent
+bindsym Mod4+Shift+a focus child
+
+bindsym Mod4+Shift+s sticky toggle
+bindsym Mod4+Shift+space floating toggle
+bindsym Mod4+space focus mode_toggle
+
+bindsym Mod4+f fullscreen toggle
+
+# Hold this key while dragging a window to move/resize
+floating_modifier Mod4

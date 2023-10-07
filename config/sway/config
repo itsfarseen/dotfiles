@@ -1,0 +1,36 @@
+font pango:monospace 8.000000
+
+focus_wrapping no
+focus_follows_mouse yes
+focus_on_window_activation smart
+mouse_warping output
+
+# default|stacking/tabbed
+workspace_layout default
+
+workspace_auto_back_and_forth no
+
+include workspaces.sway
+include windows.sway
+include layout.sway
+include resize.sway
+include touchpad.sway
+
+include keybindings.sway
+include default_apps.sway
+
+include colors.sway
+include borders.sway
+include gaps.sway
+
+include floating.sway
+
+bindsym Mod4+Shift+c reload
+bindsym Mod4+Shift+e exec $HOME/.config/sway/logout.sh
+
+bindsym Mod4+Shift+r restart
+bindsym Mod4+q kill
+
+output eDP-1 background ~/.wallpaper fill
+
+exec --no-startup-id $HOME/.config/sway/autostart.sh

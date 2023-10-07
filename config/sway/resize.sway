@@ -1,0 +1,11 @@
+# vim:ft=swayconfig:
+
+bindsym Mod4+r mode resize
+mode "resize" {
+  bindsym Down resize shrink height 20
+  bindsym Escape mode default
+  bindsym Left resize shrink width 20
+  bindsym Return mode default
+  bindsym Right resize grow width 20
+  bindsym Up resize grow height 20
+}

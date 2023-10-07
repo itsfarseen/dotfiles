@@ -1,0 +1,17 @@
+# vim:ft=swayconfig:
+
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Blueberry.pi"] floating enable
+for_window [class=".blueman-manager-wrapped"] floating enable
+for_window [title="Event Tester"] floating enable
+for_window [class="KeePassXC"] floating enable
+for_window [instance="nm-connection-editor"] floating enable
+for_window [instance="keybase"] floating enable
+for_window [window_role="pop-up"] floating enable
+
+for_window [class=".blueman-applet-wrapped" title="realme.*"] kill
+for_window [class=".blueman-applet-wrapped" title="Connected"] kill
+
+for_window [class="TelegramDesktop" title="^Telegram.*"] move scratchpad
+bindsym Mod4+m [class="TelegramDesktop" title="^Telegram.*"] scratchpad show

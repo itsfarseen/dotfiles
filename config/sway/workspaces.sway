@@ -1,0 +1,46 @@
+# vim:ft=swayconfig:
+bindsym Mod4+1 workspace number 1: Web
+bindsym Mod4+2 workspace number 2: Code
+bindsym Mod4+3 workspace number 3: Code
+bindsym Mod4+4 workspace number 4
+bindsym Mod4+5 workspace number 5
+bindsym Mod4+6 workspace number 6
+bindsym Mod4+7 workspace number 7
+bindsym Mod4+8 workspace number 8: Comms
+bindsym Mod4+9 workspace number 9
+bindsym Mod4+0 workspace number 10: Temp
+
+bindsym Mod4+Ctrl+1 move container to workspace number 1: Web
+bindsym Mod4+Ctrl+2 move container to workspace number 2: Code
+bindsym Mod4+Ctrl+3 move container to workspace number 3: Code
+bindsym Mod4+Ctrl+4 move container to workspace number 4
+bindsym Mod4+Ctrl+5 move container to workspace number 5
+bindsym Mod4+Ctrl+6 move container to workspace number 6
+bindsym Mod4+Ctrl+7 move container to workspace number 7
+bindsym Mod4+Ctrl+8 move container to workspace number 8: Comms
+bindsym Mod4+Ctrl+9 move container to workspace number 9
+bindsym Mod4+Ctrl+0 move container to workspace number 10: Temp
+
+bindsym Mod4+Shift+1 move container to workspace number 1: Web; workspace number 1: Web
+bindsym Mod4+Shift+2 move container to workspace number 2: Code; workspace number 2: Code
+bindsym Mod4+Shift+3 move container to workspace number 3: Code; workspace number 3: Code
+bindsym Mod4+Shift+4 move container to workspace number 4; workspace number 4
+bindsym Mod4+Shift+5 move container to workspace number 5; workspace number 5
+bindsym Mod4+Shift+6 move container to workspace number 6; workspace number 6
+bindsym Mod4+Shift+7 move container to workspace number 7; workspace number 7
+bindsym Mod4+Shift+8 move container to workspace number 8: Comms; workspace number 8: Comms
+bindsym Mod4+Shift+9 move container to workspace number 9; workspace number 9
+bindsym Mod4+Shift+0 move container to workspace number 10: Temp; workspace number 10: Temp
+
+bindsym Mod4+Ctrl+Up move workspace to output up
+bindsym Mod4+Ctrl+Down move workspace to output down
+bindsym Mod4+Ctrl+Left move workspace to output left
+bindsym Mod4+Ctrl+Right move workspace to output right
+
+bindsym Mod4+Ctrl+h move workspace to output left
+bindsym Mod4+Ctrl+j move workspace to output down
+bindsym Mod4+Ctrl+k move workspace to output up
+bindsym Mod4+Ctrl+l move workspace to output right
+
+bindsym Mod4+z workspace back_and_forth
+bindsym Mod4+Shift+z move container to workspace back_and_forth

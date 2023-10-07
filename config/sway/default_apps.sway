@@ -1,0 +1,8 @@
+# vim:ft=swayconfig:
+
+bindsym Mod4+w exec chromium
+bindsym Mod4+Shift+w exec palemoon
+bindsym Mod4+e exec pcmanfm
+bindsym Mod4+Return exec footclient
+
+bindsym Mod4+d exec wofi --show drun,run --no-action

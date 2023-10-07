@@ -1,0 +1,4 @@
+# vim:ft=swayconfig:
+
+bindsym Mod4+g gaps inner current plus 5
+bindsym Mod4+Shift+g gaps inner current minus 5
