@@ -1,0 +1,37 @@
+# vim:ft=sh:
+alias vim='nvim';
+
+# git
+alias gs='gst';
+alias gst='git status';
+alias gc='git commit';
+alias gcv='git commit -v';
+alias gce='git commit --amend';
+alias gcev='git commit --amend -v';
+alias gps='git push';
+alias gpsf='git push -f';
+alias gpl='git pull';
+alias gd='git diff';
+alias gds='git diff --staged';
+alias gr='git rebase';
+alias gri='git rebase -i';
+alias grc='git rebase --continue';
+alias gra='git rebase --abort';
+alias grs='git rebase --skip';
+alias gl='git log --graph --oneline';
+alias gla='git log --graph --oneline --all';
+alias glg='git log';
+
+# cd
+alias cdg='cd $(git rev-parse --show-toplevel)';
+
+# docker-compose
+alias dcu='docker-compose up';
+alias dcud='docker-compose up -d';
+alias dcd='docker-compose down';
+alias dcdu='docker-compose down && docker-compose up';
+alias dcl='docker-compose logs';
+alias dclf='docker-compose logs -f';
+
+# docker
+alias dps='docker ps';
