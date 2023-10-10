@@ -1,0 +1,125 @@
+@import "frappe.css";
+
+* {
+  font-family: "Iosevka Nerd Font Medium", "Liberation Sans", "Font Awesome";
+  font-size: 11px;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+window#waybar {
+  background: #000000;
+}
+
+#workspaces,
+#tray,
+#network,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#custom-lock,
+#cpu,
+#memory,
+#custom-power,
+#idle_inhibitor,
+tooltip,
+button {
+  padding: 0.0rem 0.5rem;
+}
+
+#workspaces {
+  padding: 0;
+}
+
+#workspaces * {
+  padding: 0;
+}
+
+#workspaces button {
+  color: @blue;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+#workspaces button:hover {
+}
+
+#workspaces button.focused {
+  background: #111111;
+  color: @pink;
+}
+
+#tray,
+#network,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#custom-lock,
+#custom-power {
+  color: @green;
+}
+
+#clock {
+  color: @lavender;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+#battery.warning:not(.charging) {
+  color: @red;
+}
+
+#network {
+    color: @flamingo;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#pulseaudio {
+  color: @pink;
+}
+
+#pulseaudio.muted {
+    color: @red;
+}
+
+#custom-power {
+    color: @red;
+}
+
+tooltip {
+    background: @base;
+}
+
+tooltip label {
+    color: @text;
+}
+
+#cpu, #memory {
+  color: @sky;
+}
+
+#window {
+  color: @text;
+}
+
+#idle_inhibitor {
+  color: @green;
+}
