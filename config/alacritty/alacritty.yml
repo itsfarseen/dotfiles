@@ -46,11 +46,6 @@ key_bindings: [
     "key": "N",
     "mods": "Control|Shift"
   },
-  {
-    "key": "N",
-    "mods": "Super"
-    "action": "\x1bn",
-  }
 ]
 scrolling: {
   "history": 10000,
