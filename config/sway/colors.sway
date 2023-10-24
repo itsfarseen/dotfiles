@@ -1,4 +1,4 @@
 # vim:ft=swayconfig:
 
-client.focused   #333333 #333333 #FFFFFF
-client.unfocused #000033 #000033 #FFFFFF
+client.focused   #5FAAC7 #5FAAC7 #FFFFFF
+client.unfocused #000000 #000000 #FFFFFF

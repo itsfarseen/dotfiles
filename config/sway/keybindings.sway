@@ -6,3 +6,6 @@ bindsym XF86MonBrightnessDown exec light -U 1.0
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -3dB
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +3dB
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
