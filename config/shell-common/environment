@@ -1,2 +1,3 @@
 # vi:ft=sh
 export EDITOR=nvim
+export PATH="$HOME/.local/bin:$PATH" # Don't remove the quotes, fish needs them
