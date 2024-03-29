@@ -24,6 +24,7 @@ alias glg='git log';
 
 # cd
 alias cdg='cd $(git rev-parse --show-toplevel)';
+alias lt='tree --gitignore -L 5'
 
 # docker-compose
 alias dcu='docker-compose up';
