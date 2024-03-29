@@ -14,83 +14,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
-	{ "folke/neodev.nvim" },
-	{ "folke/neoconf.nvim", },
-	{ "stevearc/dressing.nvim" },
-	-- LSP Config
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("neoconf").setup()
-			require("config.lsp-config")
-		end,
-		after = "neoconf.nvim"
-	},
-	-- Lua formatter
-	"ckipp01/stylua-nvim",
-	-- Flutter
-	"nvim-lua/plenary.nvim",
-	"akinsho/flutter-tools.nvim",
-	-- Bufdelete
-	{ "famiu/bufdelete.nvim",  config = function() vim.cmd([[ nnoremap <leader>x :Bdelete<CR> ]]) end },
-	-- Surround
-	{
-		"ur4ltz/surround.nvim",
-		config = function() require("surround").setup({ mappings_style = "sandwich", space_on_closing_char = true }) end,
-	},
-	-- Registers
-	{
-		"tversteeg/registers.nvim",
-		config = function()
-			local registers = require("registers")
-			registers.setup({
-				show_empty = false,
-			})
-		end,
-	},
-	{ "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
-	"tpope/vim-abolish",        -- Find/Replace variants of a word
-	"axvr/zepl.vim",            -- Iron REPL
-	{
-		"ray-x/lsp_signature.nvim", -- get lsp function hints as you type
-		event = "VeryLazy",
-		opts = {},
-		config = function(_, opts) require 'lsp_signature'.setup(opts) end
-	}
-};
-
-local pluginsExt = {
-	"lualine",
-	"rust",
-	"colorscheme",
-	"telescope",
-	"filetypes",
-	"nvim-tree",
-	"gitsigns",
-	"treesitter",
-	"nvim-ufo",
-	"cmp",
-	"prettier",
-	"black-python",
-};
-
 -- iterate through configs
 
 require("config.basic")
 
-local final_plugins = {}
+require("lazy").setup("plugs")
+require("plugs-init")
+require("keys")
+require("winseperator")
 
-local function use(x) table.insert(final_plugins, x) end
-
-for _, v in ipairs(plugins) do
-	use(v);
-end
-for _, plugin in ipairs(pluginsExt) do
-	require("plugins." .. plugin)(use);
-end
-
-require("lazy").setup(final_plugins)
 
 -- Show documentation (K) {{{
 -- vim.api.nvim_set_keymap("n", "K", ":lua ShowDocumentation()<cr>", { noremap = true, silent = true })
@@ -150,3 +82,8 @@ vim.g.markdown_fenced_languages = {
 }
 
 vim.g.python3_host_prog = "/usr/bin/python3"
+
+if vim.g.neovide then
+	vim.o.guifont = "iosevka:h16"
+	vim.g.neovide_cursor_trail_size = 0
+end

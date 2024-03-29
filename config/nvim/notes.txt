@@ -1,0 +1,91 @@
+Nvim Rewrite
+------------
+
+Done:
+- Change to folder based arch. [DONE]
+- Add border for splits. [DONE]
+
+To Do:
+- Auto-reloading of config files.
+  - Hard to acheive.
+  - Simpler to install a good session manager.
+
+- <leader>n for opening notes.
+- Separate file for keymaps.
+  - Good keymap definition plugin.
+
+- Telescope borders
+  - Simpler
+  - Use same color as splits borders.
+
+Nice plugins:
+
+  Notify: [DONE]
+  - https://github.com/rcarriga/nvim-notify
+  - https://github.com/j-hui/fidget.nvim [choosen]
+    bottom right minimalist
+  - https://github.com/mrded/nvim-lsp-notify
+    LSP progress -> notification
+    nicely packaged
+
+  Cmdline UI:
+  - https://github.com/folke/noice.nvim
+    Make colon commands centered on the screen.
+
+  Project/Session management:
+  - https://github.com/coffebar/neovim-project
+  - https://github.com/gnikdroy/projections.nvim
+  - https://github.com/nyngwang/suave.lua
+  - https://github.com/CWood-sdf/spaceport.nvim
+
+  Startup screen:
+  - https://github.com/nvimdev/dashboard-nvim
+  - https://github.com/startup-nvim/startup.nvim
+
+  Terminal:
+  - https://github.com/akinsho/toggleterm.nvim
+
+  Task runner:
+  - https://github.com/jedrzejboczar/toggletasks.nvim
+    json/yaml + toggleterm + telescope
+  - https://github.com/stevearc/overseer.nvim#features
+    supports vscode json just like toggletasks
+
+  Key hints:
+  - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-clue.md
+
+  Treesitter textobjects:
+  - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
+  - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  - https://github.com/Wansmer/treesj
+
+  Formatting:
+  - https://github.com/sbdchd/neoformat
+  - https://github.com/mhartington/formatter.nvim
+    written in lua
+  - https://github.com/lukas-reineke/lsp-format.nvim
+    uses LSP
+
+  File tree: 
+  - neo-tree
+    Could be better than nvim-tree
+    https://github.com/nvim-neo-tree/neo-tree.nvim
+
+  Utilities:
+  - https://github.com/tenxsoydev/nx.nvim
+    Convenient wrappers for vim.api.long_snake_case_functions.
+  - https://github.com/yorickpeterse/nvim-pqf
+    Pretty quickfix
+  - https://github.com/b0o/SchemaStore.nvim
+    json schemas
+
+  Breadcrumbs:
+  - https://github.com/utilyre/barbecue.nvim
+  - https://github.com/Bekaboo/dropbar.nvim#menu
+
+  Note taking:
+  - https://github.com/gsuuon/note.nvim
+  - https://github.com/renerocksai/telekasten.nvim
+  - https://github.com/chrsm/impulse.nvim (Notion read-only)
+  - https://github.com/phaazon/mind.nvim
+  - https://github.com/RutaTang/quicknote.nvim

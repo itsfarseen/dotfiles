@@ -1,19 +1,23 @@
-local on_attach = require("config.lsp-keybindings").on_attach;
-local root_pattern = require("lspconfig.util").root_pattern;
-
+local on_attach = require("config.lsp-keybindings").on_attach
+local root_pattern = require("lspconfig.util").root_pattern
 
 local merge = function(a, b)
 	local c = {}
-	for k, v in pairs(a) do c[k] = v end
-	for k, v in pairs(b) do c[k] = v end
+	for k, v in pairs(a) do
+		c[k] = v
+	end
+	for k, v in pairs(b) do
+		c[k] = v
+	end
 	return c
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
-	lineFoldingOnly = true
+	lineFoldingOnly = true,
 }
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local common_setup = {
 	on_attach = on_attach,
@@ -35,49 +39,32 @@ local lsps = {
 	"volar",
 	"ccls",
 	"tailwindcss",
+	"html",
+	"cssls",
 	denols = {
-		root_dir = root_pattern("deno.json", "deno.jsonc")
+		root_dir = root_pattern("deno.json", "deno.jsonc"),
 	},
 	hls = {
 		settings = {
 			haskell = { formattingProvider = "fourmolu" },
 		},
 	},
-	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" }, },
+	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	lua_ls = {
 		settings = {
 			Lua = {
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-					-- Setup your lua path
-					-- path = runtime_path,
-					path = vim.split(package.path, ";"),
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim", "awesome", "client", "root", "screen" },
-				},
 				workspace = {
-					-- Make the server aware of Neovim runtime files
-					-- library = vim.api.nvim_get_runtime_file("", true),
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-						["/usr/share/awesome/lib"] = true,
-					},
+					preloadFileSize = 100,
 				},
-				-- Do not send telemetry data containing a randomized but unique identifier
 				telemetry = {
 					enable = false,
 				},
-				commands = {},
 			},
 		},
 	},
 	tsserver = {
 		single_file_support = false,
-		root_dir = root_pattern('package.json', 'tsconfig.json'),
+		root_dir = root_pattern("package.json", "tsconfig.json"),
 	},
 }
 

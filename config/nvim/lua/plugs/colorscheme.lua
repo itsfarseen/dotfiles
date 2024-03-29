@@ -1,5 +1,5 @@
-return function(use)
-	use {
+return {
+	{
 		"folke/tokyonight.nvim",
 		config = function()
 			require("tokyonight").setup({
@@ -11,5 +11,5 @@ return function(use)
 			})
 			vim.cmd("colorscheme tokyonight")
 		end,
-	};
-end
+	}
+}

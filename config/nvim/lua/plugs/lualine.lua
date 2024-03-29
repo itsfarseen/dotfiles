@@ -1,9 +1,6 @@
-return function(use)
-	use {
+return {
+	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = {
-			"arkav/lualine-lsp-progress",
-		},
 		config = function()
 			require("lualine").setup({
 				options = {
@@ -13,12 +10,12 @@ return function(use)
 					section_separators = { left = "", right = "" },
 					disabled_filetypes = {},
 					always_divide_middle = true,
-					globalstatus = false,
+					globalstatus = true,
 				},
 				sections = {
 					lualine_a = { "mode" },
 					lualine_b = { "branch", "diff", "diagnostics" },
-					lualine_c = { "filename", "lsp_progress" },
+					lualine_c = { "filename" },
 					lualine_x = { "encoding", "fileformat", "filetype" },
 					lualine_y = { "progress" },
 					lualine_z = { "location" },
@@ -35,5 +32,5 @@ return function(use)
 				extensions = {},
 			})
 		end
-	};
-end
+	}
+}

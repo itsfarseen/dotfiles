@@ -1,5 +1,5 @@
-return function(use)
-	use {
+return {
+	{
 		'averms/black-nvim',
 		config = function()
 			vim.api.nvim_create_autocmd("BufWritePre", {
@@ -9,4 +9,4 @@ return function(use)
 		end,
 		build = function() vim.cmd("UpdateRemotePlugins") end
 	}
-end
+}

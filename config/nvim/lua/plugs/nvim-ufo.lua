@@ -1,7 +1,7 @@
-return function(use)
-	use {
+return {
+	{
 		'kevinhwang91/nvim-ufo',
-		dependencies = { 'kevinhwang91/promise-async' },
+		dependencies = { "neovim/nvim-lspconfig", 'kevinhwang91/promise-async' },
 		config = function()
 			vim.o.foldcolumn = '1'
 			vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -29,6 +29,5 @@ return function(use)
 				end
 			})
 		end,
-		after = "nvim-lspconfig",
 	}
-end
+}

@@ -1,9 +1,9 @@
-return function(use)
-	use {
-			"nvim-telescope/telescope.nvim",
-			dependencies = { "nvim-lua/plenary.nvim" },
-			config = function()
-				vim.cmd([[
+return {
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			vim.cmd([[
 					nnoremap <c-p> <cmd>Telescope find_files<cr>
 					nnoremap <leader>ff <cmd>Telescope find_files<cr>
 					nnoremap <leader>fgg <cmd>Telescope live_grep<cr>
@@ -22,6 +22,6 @@ return function(use)
 					nnoremap <leader>fgs <cmd>Telescope git_status<cr>
 					nnoremap <leader>ft <cmd>Telescope treesitter<cr>
 				]])
-			end
-	};
-end
+		end
+	}
+}

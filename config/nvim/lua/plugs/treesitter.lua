@@ -1,7 +1,7 @@
-return function(use)
-	use {
+return {
+	{
 		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate',
+		build = ':TSUpdate',
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
@@ -12,6 +12,8 @@ return function(use)
 					"go",
 					"html",
 					"javascript",
+					"json",
+					"jsonc",
 					"lua",
 					"nix",
 					"python",
@@ -19,8 +21,8 @@ return function(use)
 					"typescript",
 					"zig",
 				},
-				-- Install languages synchronously (only applied to `ensure_installed`)
-				sync_install = false,
+				auto_install = true, -- Install missing parsers when you open a file
+				sync_install = false, -- sync/async for ensure_installed
 				-- List of parsers to ignore installing
 				ignore_install = {},
 				highlight = {
@@ -45,13 +47,11 @@ return function(use)
 						node_decremental = "<S-Tab>",
 					},
 				},
-			})
-
-			require 'nvim-treesitter.configs'.setup {
 				indent = {
 					enable = true
-				}
-			}
+				},
+				modules = {}
+			})
 		end
-	};
-end
+	}
+}
