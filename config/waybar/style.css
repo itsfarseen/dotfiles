@@ -1,8 +1,7 @@
 @import "frappe.css";
 
-* {
+#waybar {
   font-family: "Iosevka Nerd Font Medium", "Liberation Sans", "Font Awesome";
-  font-size: 11px;
 }
 
 .icon {
@@ -118,6 +117,7 @@ tooltip label {
 
 #window {
   color: @text;
+  font-size: 12px;
 }
 
 #idle_inhibitor {
