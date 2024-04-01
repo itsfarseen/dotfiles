@@ -111,7 +111,7 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{percentage}% ({swapPercentage}%) "
     },
     "temperature": {
         // "thermal-zone": 2,
