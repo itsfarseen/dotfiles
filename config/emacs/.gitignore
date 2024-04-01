@@ -1,2 +1,4 @@
 elpa
 *~
+.cache
+eln-cache
