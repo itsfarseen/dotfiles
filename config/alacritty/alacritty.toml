@@ -43,6 +43,10 @@ action = "SpawnNewInstance"
 key = "N"
 mods = "Control|Shift"
 
+[[mouse.bindings]]
+mouse = "Middle"
+action = "None"
+
 [scrolling]
 history = 10000
 multiplier = 3
