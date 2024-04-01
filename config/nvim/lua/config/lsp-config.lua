@@ -62,6 +62,13 @@ local lsps = {
 			},
 		},
 	},
+	purescriptls = {
+		settings = {
+			purescript = {
+				formatter = "purs-tidy",
+			},
+		},
+	},
 	tsserver = {
 		single_file_support = false,
 		root_dir = root_pattern("package.json", "tsconfig.json"),
