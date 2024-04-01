@@ -23,6 +23,9 @@
         "clock",
         "tray"
     ],
+    "sway/window": {
+        "max-length": 40
+    },
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
