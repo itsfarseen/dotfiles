@@ -1,8 +1,20 @@
 # vim:ft=swayconfig:
 
-input type:touchpad {
-  tap enabled
+input "1267:12631:ASUE1409:00_04F3:3157_Touchpad" {
+  events enabled
+  accel_profile adaptive
+  pointer_accel 0.45
   natural_scroll enabled
-  accel_profile "adaptive"
-  pointer_accel 0
+  scroll_factor 0.8
+  scroll_method two_finger
+  left_handed disabled
+  tap enabled
+  tap_button_map lrm
+  drag enabled
+  drag_lock disabled
+  dwt enabled
+  dwtp enabled
+  rotation_angle 0.0
+  middle_emulation enabled
+  click_method button_areas
 }
