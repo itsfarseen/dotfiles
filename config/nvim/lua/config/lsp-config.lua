@@ -29,26 +29,13 @@ local common_setup = {
 }
 
 local lsps = {
-	"denols",
-	"dhall_lsp_server",
 	"gopls",
 	"pyright",
 	"rnix",
 	"svelte",
-	"tsserver",
-	"volar",
 	"ccls",
-	"tailwindcss",
 	"html",
 	"cssls",
-	denols = {
-		root_dir = root_pattern("deno.json", "deno.jsonc"),
-	},
-	hls = {
-		settings = {
-			haskell = { formattingProvider = "fourmolu" },
-		},
-	},
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	lua_ls = {
 		settings = {
