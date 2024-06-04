@@ -31,6 +31,7 @@ bindsym Mod4+Shift+e exec $HOME/.config/sway/logout.sh
 bindsym Mod4+Shift+r restart
 bindsym Mod4+q kill
 
-output eDP-1 background ~/.wallpaper fill
+output * background ~/.wallpaper fill
+output * scale 1.0
 
 exec --no-startup-id $HOME/.config/sway/autostart.sh
