@@ -4,6 +4,13 @@
 # Inserts a blank line between shell prompts
 add_newline = true
 
+[directory]
+style="bold fg:blue"
+
+[cmd_duration]
+style="bold purple"
+format = "[󱎫 $duration]($style)"
+
 [container]
 disabled = true
 
