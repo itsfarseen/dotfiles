@@ -16,8 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- iterate through configs
 
-require("config.basic")
-
+require("basic")
 require("lazy").setup("plugs")
 require("plugs-init")
 require("keys")
