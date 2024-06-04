@@ -17,3 +17,6 @@ exec "avizo-service"
 
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
+
+bindsym ctrl+alt+left workspace prev
+bindsym ctrl+alt+right workspace next
