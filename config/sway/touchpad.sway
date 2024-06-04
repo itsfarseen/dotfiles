@@ -1,6 +1,6 @@
 # vim:ft=swayconfig:
 
-input "1267:12631:ASUE1409:00_04F3:3157_Touchpad" {
+input type:touchpad {
   events enabled
   accel_profile adaptive
   pointer_accel 0.45
