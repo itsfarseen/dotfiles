@@ -1,11 +1,19 @@
 # vim:ft=swayconfig:
 
-bindsym XF86MonBrightnessUp   exec light -A 1.0
-bindsym XF86MonBrightnessDown exec light -U 1.0
+# Install avizo to get volumectl and lightctl
+# avizo shows nice popup when doing volume/brightness changes
 
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -3dB
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +3dB
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec volumectl -u up
+bindsym XF86AudioLowerVolume exec volumectl -u down
+bindsym shift+XF86AudioRaiseVolume exec volumectl -m -u up
+bindsym shift+XF86AudioLowerVolume exec volumectl -m -u down
+bindsym XF86AudioMute exec volumectl toggle-mute
+bindsym XF86AudioMicMute exec volumectl -m toggle-mute
+
+bindsym XF86MonBrightnessUp exec lightctl up
+bindsym XF86MonBrightnessDown exec lightctl down
+
+exec "avizo-service"
 
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
