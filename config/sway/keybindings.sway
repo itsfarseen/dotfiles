@@ -20,3 +20,13 @@ bindgesture swipe:left workspace next
 
 bindsym ctrl+alt+left workspace prev
 bindsym ctrl+alt+right workspace next
+
+bindsym Mod4+w exec firefox
+bindsym Mod4+Shift+w exec chromium
+bindsym Mod4+e exec pcmanfm
+bindsym Mod4+Return exec footclient
+bindsym Mod4+s exec sh -c 'grim -g "$(slurp)" - | swappy -f -'
+bindsym Mod4+u exec code
+
+bindsym Mod4+d exec wofi --show drun,run --no-action
+bindsym Mod4+Shift+d exec wofi --show run --no-action
