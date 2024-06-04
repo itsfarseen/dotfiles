@@ -15,8 +15,11 @@ bindsym XF86MonBrightnessDown exec lightctl down
 
 exec "avizo-service"
 
-bindgesture swipe:right workspace prev
-bindgesture swipe:left workspace next
+bindgesture swipe:3:right workspace prev
+bindgesture swipe:3:left workspace next
+
+bindgesture swipe:3:up fullscreen enable
+bindgesture swipe:3:down fullscreen disable
 
 bindsym ctrl+alt+left workspace prev
 bindsym ctrl+alt+right workspace next
