@@ -1,7 +1,7 @@
 # vim:ft=swayconfig:
 
-bindsym Mod4+Shift+v split h
-bindsym Mod4+v split v
+bindsym Mod4+v split toggle
+bindsym Mod4+Shift+v split none
 
 bindsym Mod4+period layout tabbed
 bindsym Mod4+comma layout stacking
