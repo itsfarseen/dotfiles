@@ -1,8 +1,12 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+		},
 		config = function()
+			require('telescope').load_extension('fzf')
 			vim.cmd([[
 					nnoremap <c-p> <cmd>Telescope find_files<cr>
 					nnoremap <leader>ff <cmd>Telescope find_files<cr>
