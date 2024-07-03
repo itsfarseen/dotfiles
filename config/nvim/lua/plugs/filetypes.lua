@@ -1,11 +1,9 @@
 return {
 	{
-		"nathom/filetype.nvim",
+		"sheerun/vim-polyglot",
 		config = function()
-			vim.g.did_load_filetypes = 1
+			-- Formatting is done by the LSP
+			vim.g.zig_fmt_autosave = false;
 		end
-	},
-	{
-		"sheerun/vim-polyglot"
 	}
 }
