@@ -1,15 +1,4 @@
 require("neoconf").setup()
-require("neodev").setup({
-	library = {
-		enabled = true,
-		runtime = true,
-		types = true,
-		plugins = true
-	},
-	setup_jsonls = true,
-	lspconfig = true,
-	pathStrict = true
-})
 require("fidget").setup(require("fidget-config"))
 require("config.lsp-config")
 
