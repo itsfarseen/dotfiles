@@ -31,4 +31,4 @@ end
 _G.my_format = my_format
 
 vim.cmd("nnoremap <silent><buffer> <Leader>ff :lua my_format()<CR>")
-vim.cmd("autocmd BufWritePre <buffer> lua my_format()")
+vim.cmd("autocmd BufWritePre * lua my_format()")
