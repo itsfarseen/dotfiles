@@ -1,0 +1,3 @@
+-f 'bestvideo[height<=720]+bestaudio/best[height<=720]'
+--merge-output-format mp4 
+-o '%(channel)s - %(title)s - %(id)s.%(ext)s'
