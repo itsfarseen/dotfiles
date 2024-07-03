@@ -45,6 +45,11 @@ return {
 					{ name = "crates" },
 					-- { name = "copilot" },
 				},
+				view = {
+					docs = {
+						auto_open = false
+					}
+				}
 			})
 		end
 	},
