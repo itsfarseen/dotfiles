@@ -20,6 +20,7 @@ require("basic")
 require("lazy").setup("plugs")
 require("plugs-init")
 require("keys")
+require("format")
 
 
 -- Show documentation (K) {{{
