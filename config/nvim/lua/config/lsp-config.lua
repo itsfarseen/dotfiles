@@ -36,6 +36,7 @@ local lsps = {
 	"ccls",
 	"html",
 	"cssls",
+	"zls",
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	lua_ls = {
 		settings = {
