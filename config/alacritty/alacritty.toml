@@ -61,7 +61,7 @@ white = "#aeb3bb"
 [env]
 
 [font]
-size = 14
+size = 17
 
 [font.normal]
 family = "Iosevka Fixed"
