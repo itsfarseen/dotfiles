@@ -21,6 +21,7 @@ require("lazy").setup("plugs")
 require("plugs-init")
 require("keys")
 require("format-config")
+require("winseperator")
 
 
 -- Show documentation (K) {{{

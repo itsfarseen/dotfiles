@@ -1,9 +1,15 @@
 return {
 	{
-		'rmehri01/onenord.nvim',
+		"folke/tokyonight.nvim",
 		config = function()
-			vim.cmd("colorscheme onenord")
-			require('onenord').setup()
-		end
+			require("tokyonight").setup({
+				style = "night",
+				transparent = false,
+				styles = {
+					sidebars = "dark",
+				}
+			})
+			vim.cmd("colorscheme tokyonight")
+		end,
 	}
 }
