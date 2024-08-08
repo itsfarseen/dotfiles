@@ -2,6 +2,8 @@
 -- Else use the LSP.
 -- This lets me override LSP formatting for specific cases, like prettier for JS/TS.
 local my_format = function()
+	if (_G.format_enabled ~= true) then return; end
+
 	local client = nil;
 	for _, value in ipairs(vim.lsp.get_clients()) do
 		if (value["name"] == "null-ls") then
@@ -29,6 +31,7 @@ local my_format = function()
 end
 
 _G.my_format = my_format
+_G.format_enabled = true
 
 vim.cmd("nnoremap <silent><buffer> <Leader>ff :lua my_format()<CR>")
 vim.cmd("autocmd BufWritePre * lua my_format()")
