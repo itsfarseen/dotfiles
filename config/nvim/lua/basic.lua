@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.o.exrc = true
 
 vim.o.number = true
 vim.cmd("filetype indent on")
