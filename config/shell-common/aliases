@@ -22,9 +22,6 @@ alias gl='git log --graph --oneline';
 alias gla='git log --graph --oneline --all';
 alias glg='git log';
 
-# cd
-echo $SHELL | grep -q 'fish' || alias cdg='cd $(git rev-parse --show-toplevel)';
-echo $SHELL | grep -q 'fish' && alias cdg='cd (git rev-parse --show-toplevel)';
 alias lt='tree --gitignore -L 5'
 
 # docker-compose
