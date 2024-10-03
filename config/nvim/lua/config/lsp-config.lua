@@ -30,7 +30,6 @@ local common_setup = {
 
 local lsps = {
 	"gopls",
-	"pyright",
 	"rnix",
 	"svelte",
 	"ccls",
@@ -57,9 +56,21 @@ local lsps = {
 			},
 		},
 	},
-	tsserver = {
+	pyright = {
+		settings = {
+			python = {
+				analysis = {
+					autoSearchPaths = true,
+					useLibraryCodeForTypes = true,
+					diagnosticMode = 'openFilesOnly',
+					stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs"
+				},
+			},
+		},
+	},
+	ts_ls = {
 		single_file_support = false,
-		root_dir = root_pattern("package.json", "tsconfig.json"),
+		root_dir = root_pattern("tsconfig.json", "package.json"),
 	},
 }
 
