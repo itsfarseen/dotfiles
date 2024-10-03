@@ -14,6 +14,7 @@ return {
 	"folke/neoconf.nvim",
 	"stevearc/dressing.nvim",
 	"j-hui/fidget.nvim",
+	"microsoft/python-type-stubs",
 	"neovim/nvim-lspconfig",
 	-- Lua formatter
 	"ckipp01/stylua-nvim",
