@@ -51,6 +51,17 @@ vim.cmd([[
   nnoremap <leader><leader> :noh<CR>:pclose<CR>
 
 	tnoremap <Esc> <C-\><C-N>
+
+  nnoremap <leader>1 :tabn 1<CR>
+  nnoremap <leader>2 :tabn 2<CR>
+  nnoremap <leader>3 :tabn 3<CR>
+  nnoremap <leader>4 :tabn 4<CR>
+  nnoremap <leader>5 :tabn 5<CR>
+  nnoremap <leader>6 :tabn 6<CR>
+  nnoremap <leader>7 :tabn 7<CR>
+  nnoremap <leader>8 :tabn 8<CR>
+  nnoremap <leader>9 :tabn 9<CR>
+  nnoremap <leader>0 :tabn 10<CR>
 ]])
 
 vim.o.completeopt = "menu,menuone,noselect"
