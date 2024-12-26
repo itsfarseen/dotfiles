@@ -1,3 +1,6 @@
+[general]
+import = ["local.toml"]
+
 [[colors.indexed_colors]]
 color = "0xff9e64"
 index = 16
@@ -29,11 +32,6 @@ yellow = "0xe0af68"
 [colors.primary]
 background = "0x1a1b26"
 foreground = "0xc0caf5"
-
-[env]
-
-[font]
-size = 17
 
 [font.normal]
 family = "Iosevka Fixed"
