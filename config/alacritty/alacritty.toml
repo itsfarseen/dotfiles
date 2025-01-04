@@ -55,6 +55,7 @@ dynamic_title = true
 opacity = 0.99
 blur = true
 decorations_theme_variant = "Dark"
+decorations = "None"
 
 [window.padding]
 x = 5
