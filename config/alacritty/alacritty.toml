@@ -2,6 +2,11 @@
 import = ["local.toml"]
 shell = "/usr/local/bin/zellij"
 
+[env]
+# This is needed for the font size to not double in X11
+# With this, it looks more or less similar to wayland font size
+WINIT_X11_SCALE_FACTOR = "1.0"
+
 [[colors.indexed_colors]]
 color = "0xff9e64"
 index = 16
