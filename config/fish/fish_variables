@@ -2,6 +2,8 @@
 # VERSION: 3.0
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z
+SETUVAR Z_DATA:/home/farseen/\x2elocal/share/z/data
+SETUVAR Z_DATA_DIR:/home/farseen/\x2elocal/share/z
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_decors_2F_fish_2D_colored_2D_man_files:\x7e/\x2econfig/fish/functions/man\x2efish
 SETUVAR _fisher_itsfarseen_2F_nvm_2E_fish_files:\x7e/\x2econfig/fish/functions/_nvm_index_update\x2efish\x1e\x7e/\x2econfig/fish/functions/_nvm_list\x2efish\x1e\x7e/\x2econfig/fish/functions/_nvm_version_activate\x2efish\x1e\x7e/\x2econfig/fish/functions/_nvm_version_deactivate\x2efish\x1e\x7e/\x2econfig/fish/functions/nvm\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/nvm\x2efish\x1e\x7e/\x2econfig/fish/completions/nvm\x2efish
@@ -21,4 +23,4 @@ SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
 SETUVAR fish_greeting:\x1d
 SETUVAR fish_key_bindings:fish_default_key_bindings
-SETUVAR fish_user_paths:/home/farseen/\x2elocal/share/solana/install/active_release/bin
+SETUVAR fish_user_paths:/opt/google\x2dcloud\x2dcli/bin\x1e/home/farseen/\x2elocal/share/solana/install/active_release/bin
