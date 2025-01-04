@@ -1,5 +1,7 @@
 [general]
 import = ["local.toml"]
+
+[terminal]
 shell = "/usr/local/bin/zellij"
 
 [env]
