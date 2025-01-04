@@ -1,5 +1,6 @@
 [general]
 import = ["local.toml"]
+shell = "/usr/local/bin/zellij"
 
 [[colors.indexed_colors]]
 color = "0xff9e64"
