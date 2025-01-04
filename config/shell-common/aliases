@@ -34,3 +34,5 @@ alias dclf='docker-compose logs -f';
 
 # docker
 alias dps='docker ps';
+
+alias zz='zellij';
