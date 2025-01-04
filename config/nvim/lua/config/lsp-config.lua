@@ -37,6 +37,12 @@ local lsps = {
 	"cssls",
 	"zls",
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
+	hls = {
+		filetypes = { 'haskell', 'lhaskell', 'cabal' },
+		settings = {
+			haskell = { manageHLS = "GHCup" },
+		},
+	},
 	lua_ls = {
 		settings = {
 			Lua = {
