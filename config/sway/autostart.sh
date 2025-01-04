@@ -16,8 +16,8 @@ dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XD
 # systemd tries autostarting the enabled units.
 systemctl --user start foot-server.socket
 
-#gnome-keyring-daemon &
-kwalletmanager &
+gnome-keyring-daemon &
+#kwalletmanager &
 /usr/lib/lxpolkit/lxpolkit & 
 xsettingsd &
 nwg-panel &
@@ -29,6 +29,6 @@ swaync &
 # wlr-gammactl-fzn -c 0.98:1.00:0.94 -g 1.015:1.01:1.0 -b 1.02:1.005:0.98
 # wlr-gammactl-fzn -c 1.1:1.1:1.1 -g 1.1:1.1:1.1 -b 0.915:0.915:0.9
 # /usr/local/bin/wlr-gammactl-fzn -c 1.01:1.00:0.95 -g 0.95:0.95:0.95 -b 0.97:0.97:0.95
-/usr/local/bin/wlr-gammactl-fzn -c 1.01:1.04:0.86 -b 0.94:0.95:0.88 -g 0.93:0.88:1.10 &
+# /usr/local/bin/wlr-gammactl-fzn -c 1.01:1.04:0.86 -b 0.94:0.95:0.88 -g 0.93:0.88:1.10 &
 sleep 2s
 maestral_qt &
