@@ -50,6 +50,13 @@ keybinds clear-defaults=true {
         bind "Ctrl ]" { SwitchToMode "Scroll"; }
 
         bind "Alt Shift :" { SwitchToMode "Session"; }
+        bind "Alt r" { SwitchToMode "resize"; }
+    }
+    resize {
+        bind "h" { Resize "Increase left"; }
+        bind "j" { Resize "Increase down"; }
+        bind "k" { Resize "Increase up"; }
+        bind "l" { Resize "Increase right"; }
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
