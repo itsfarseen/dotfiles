@@ -40,7 +40,11 @@ local lsps = {
 	hls = {
 		filetypes = { 'haskell', 'lhaskell', 'cabal' },
 		settings = {
-			haskell = { manageHLS = "GHCup" },
+			haskell = {
+				manageHLS = "GHCup",
+				formattingProvider = "ormolu",
+				cabalFormattingProvider = "cabal-gild",
+			},
 		},
 	},
 	lua_ls = {
