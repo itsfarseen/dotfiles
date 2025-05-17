@@ -22,6 +22,7 @@ require("plugs-init")
 require("keys")
 require("format-config")
 require("winseperator")
+require("fold")
 
 
 -- Show documentation (K) {{{
