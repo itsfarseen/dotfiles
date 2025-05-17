@@ -1,2 +1,5 @@
+[general]
+import = ["tokyonight-night.toml"]
+
 [font]
 size = 15
