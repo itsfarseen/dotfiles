@@ -1,9 +1,8 @@
 return {
 	{
-		"sheerun/vim-polyglot",
+		'ziglang/zig.vim',
 		config = function()
-			-- Formatting is done by the LSP
-			vim.g.zig_fmt_autosave = false;
+			vim.g.zig_fmt_autosave = 0
 		end
 	}
 }
