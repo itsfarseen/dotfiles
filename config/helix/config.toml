@@ -1,0 +1,26 @@
+theme = "tokyonight"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal]
+"C-s" = ":write"
+
+[keys.normal.space]
+"h" = "jump_view_left"
+"j" = "jump_view_down"
+"k" = "jump_view_up"
+"l" = "jump_view_right"
+"c" = "wclose"
+
+[keys.normal.space.w]
+"h" = ["vsplit", "jump_view_left"]
+"j" = "hsplit"
+"k" = ["hsplit", "jump_view_up"]
+"l" = "vsplit"
+
+[keys.insert]
+"C-[" = "normal_mode"
+j = { k = "normal_mode" } # Maps `jk` to exit insert mode
