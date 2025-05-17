@@ -49,7 +49,7 @@ keybinds clear-defaults=true {
 
         bind "Ctrl ]" { SwitchToMode "Scroll"; }
 
-        bind "Alt Shift :" { SwitchToMode "Session"; }
+        bind "Alt w" { SwitchToMode "Session"; }
         bind "Alt r" { SwitchToMode "resize"; }
     }
     resize {
@@ -167,7 +167,7 @@ pane_frames false
 //   - true (default)
 //   - false
 //
-// session_serialization false
+session_serialization false
 
 // Whether pane viewports are serialized along with the session, default is false
 // Options:
