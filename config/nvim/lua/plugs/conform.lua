@@ -1,5 +1,6 @@
+local prettierOrPrettierD = { "prettierd", "prettier", stop_after_first = true }
 return {
-	'stevearc/conform.nvim',
+	"stevearc/conform.nvim",
 	-- This will provide type hinting with LuaLS
 	---@module "conform"
 	---@type conform.setupOpts
@@ -8,7 +9,13 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			python = { "isort", "black" },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
+			templ = { "templ" },
+			go = { "goimports", "gofmt" },
+			html = prettierOrPrettierD,
+			css = prettierOrPrettierD,
+			javascript = prettierOrPrettierD,
+			json = prettierOrPrettierD,
+			yaml = prettierOrPrettierD,
 		},
 		-- Set default options
 		default_format_opts = {
