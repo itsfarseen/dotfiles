@@ -20,10 +20,8 @@ require("basic")
 require("lazy").setup("plugs")
 require("plugs-init")
 require("keys")
-require("format-config")
 require("winseperator")
 require("fold")
-
 
 -- Show documentation (K) {{{
 -- vim.api.nvim_set_keymap("n", "K", ":lua ShowDocumentation()<cr>", { noremap = true, silent = true })
@@ -58,7 +56,6 @@ require("fold")
 
 -- Key binds
 
-
 local border = {
 	{ "🭽", "FloatBorder" },
 	{ "▔", "FloatBorder" },
@@ -76,10 +73,9 @@ local handlers = {
 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
 
-
 -- To highlight codefences returned from denols
 vim.g.markdown_fenced_languages = {
-	"ts=typescript"
+	"ts=typescript",
 }
 
 vim.g.python3_host_prog = "/usr/bin/python3"
