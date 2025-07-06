@@ -12,6 +12,8 @@ return {
 			templ = { "templ" },
 			go = { "goimports", "gofmt" },
 			html = prettierOrPrettierD,
+			javascriptreact = prettierOrPrettierD,
+			typescriptreact = prettierOrPrettierD,
 			css = prettierOrPrettierD,
 			javascript = prettierOrPrettierD,
 			json = prettierOrPrettierD,
