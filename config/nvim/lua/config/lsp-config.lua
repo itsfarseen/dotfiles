@@ -60,8 +60,8 @@ local lsps = {
 				analysis = {
 					autoSearchPaths = true,
 					useLibraryCodeForTypes = true,
-					diagnosticMode = 'openFilesOnly',
-					stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs"
+					diagnosticMode = "openFilesOnly",
+					stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
 				},
 			},
 		},
@@ -72,11 +72,15 @@ local lsps = {
 	},
 }
 
-local nvim_lsp = require("lspconfig")
 for k, v in pairs(lsps) do
+	local lsp_name, setup_table
 	if type(v) == "string" then
-		nvim_lsp[v].setup(common_setup)
+		lsp_name = v
+		setup_table = common_setup
 	else
-		nvim_lsp[k].setup(merge(common_setup, v))
+		lsp_name = k
+		setup_table = merge(common_setup, v)
 	end
+	vim.lsp.config(lsp_name, setup_table)
+	vim.lsp.enable(lsp_name)
 end
