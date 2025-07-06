@@ -12,20 +12,8 @@ local merge = function(a, b)
 	return c
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.foldingRange = {
-	dynamicRegistration = false,
-	lineFoldingOnly = true,
-}
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 local common_setup = {
 	on_attach = on_attach,
-	capabilities = capabilities,
-	-- handlers = handlers,
-	flags = {
-		debounce_text_changes = 150,
-	},
 }
 
 local lsps = {
@@ -38,7 +26,7 @@ local lsps = {
 	"zls",
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	hls = {
-		filetypes = { 'haskell', 'lhaskell', 'cabal' },
+		filetypes = { "haskell", "lhaskell", "cabal" },
 		settings = {
 			haskell = {
 				manageHLS = "GHCup",
