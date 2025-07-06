@@ -1,7 +1,7 @@
 return {
 	{
-		'nvim-treesitter/nvim-treesitter',
-		build = ':TSUpdate',
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
@@ -48,10 +48,10 @@ return {
 					},
 				},
 				indent = {
-					enable = true
+					enable = false,
 				},
-				modules = {}
+				modules = {},
 			})
-		end
-	}
+		end,
+	},
 }
