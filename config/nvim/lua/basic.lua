@@ -62,6 +62,8 @@ vim.cmd([[
   nnoremap <leader>8 :tabn 8<CR>
   nnoremap <leader>9 :tabn 9<CR>
   nnoremap <leader>0 :tabn 10<CR>
+
+  nnoremap <leader>n :e notes.txt<CR>
 ]])
 
 vim.o.completeopt = "menu,menuone,noselect"
