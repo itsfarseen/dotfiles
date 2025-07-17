@@ -16,6 +16,7 @@ return {
 			typescriptreact = prettierOrPrettierD,
 			css = prettierOrPrettierD,
 			javascript = prettierOrPrettierD,
+			typescript = prettierOrPrettierD,
 			json = prettierOrPrettierD,
 			yaml = prettierOrPrettierD,
 		},
