@@ -1,5 +1,4 @@
 local on_attach = require("config.lsp-keybindings").on_attach
-local root_pattern = require("lspconfig.util").root_pattern
 
 local merge = function(a, b)
 	local c = {}
@@ -24,6 +23,7 @@ local lsps = {
 	"html",
 	"cssls",
 	"zls",
+	"ts_ls",
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	hls = {
 		filetypes = { "haskell", "lhaskell", "cabal" },
@@ -65,10 +65,6 @@ local lsps = {
 				},
 			},
 		},
-	},
-	ts_ls = {
-		single_file_support = false,
-		root_dir = root_pattern("tsconfig.json", "package.json"),
 	},
 }
 
