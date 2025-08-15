@@ -108,6 +108,135 @@ keybinds clear-defaults=true {
             SwitchToMode "Normal"
         }
     }
+
+themes {
+      vague {
+		text_unselected {
+			base 205 205 205
+			background 20 20 21
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 110 148 178
+			emphasis_3 187 157 189
+		}
+		text_selected {
+			base 205 205 205
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 110 148 178
+			emphasis_3 187 157 189
+		}
+		ribbon_unselected {
+			base 37 37 48
+			background 110 110 110
+			emphasis_0 37 37 48
+			emphasis_1 140 140 140
+			emphasis_2 243 190 124
+			emphasis_3 187 157 189
+		}
+		ribbon_selected {
+			base 37 37 48
+			background 110 148 178
+			emphasis_0 37 37 48
+			emphasis_1 243 190 124
+			emphasis_2 187 157 189
+			emphasis_3 243 190 124
+		}
+		table_title {
+			base 127 165 99
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 110 148 178
+			emphasis_3 187 157 189
+		}
+		table_cell_unselected {
+			base 205 205 205
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 110 148 178
+			emphasis_3 187 157 189
+		}
+		table_cell_selected {
+			base 205 205 205
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 110 148 178
+			emphasis_3 187 157 189
+		}
+		list_unselected {
+			base 205 205 205
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 110 148 178
+			emphasis_3 187 157 189
+		}
+		list_selected {
+			base 205 205 205
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 110 148 178
+			emphasis_3 187 157 189
+		}
+		frame_selected {
+			base 174 174 209
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 174 174 209
+			emphasis_2 187 157 189
+			emphasis_3 37 37 48
+		}
+		frame_unselected {
+			base 96 96 121
+			background 96 96 121
+			emphasis_0 96 96 121
+			emphasis_1 96 96 121
+			emphasis_2 96 96 121
+			emphasis_3 96 96 121
+		}
+		frame_highlight {
+			base 243 190 124
+			background 37 37 48
+			emphasis_0 187 157 189
+			emphasis_1 243 190 124
+			emphasis_2 243 190 124
+			emphasis_3 243 190 124
+		}
+		exit_code_success {
+			base 127 165 99
+			background 37 37 48
+			emphasis_0 174 174 209
+			emphasis_1 37 37 48
+			emphasis_2 187 157 189
+			emphasis_3 243 190 124
+		}
+		exit_code_error {
+			base 216 100 126
+			background 37 37 48
+			emphasis_0 243 190 124
+			emphasis_1 37 37 48
+			emphasis_2 37 37 48
+			emphasis_3 37 37 48
+		}
+		multiplayer_user_colors {
+			player_1 187 157 189
+			player_2 243 190 124
+			player_3 37 37 48
+			player_4 174 174 209
+			player_5 216 100 126
+			player_6 37 37 48
+			player_7 127 165 99
+			player_8 37 37 48
+			player_9 37 37 48
+			player_10 37 37 48
+		}
+	}
+
 }
 
 plugins {
@@ -139,6 +268,11 @@ plugins {
 //
  simplified_ui true
 
+// Choose the theme that is specified in the themes section.
+// Default: default
+// 
+theme "vague"
+ 
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
@@ -185,44 +319,6 @@ session_serialization false
 // For more examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
 // Once these themes are defined, one of them should to be selected in the "theme" section of this file
 //
-themes {
-    dracula {
-        fg 248 248 242
-        bg 40 42 54
-        red 255 85 85
-        green 80 250 123
-        yellow 241 250 140
-        blue 98 114 164
-        magenta 255 121 198
-        orange 255 184 108
-        cyan 139 233 253
-        black 0 0 0
-        white 255 255 255
-    }
-    tokyonight_night {
-        fg "#c0caf5"
-        bg "#292e42"
-        // Black should match the terminal background color
-        // This ensures the top and bottom bars are transparent
-        black "#1a1b26"
-        red "#f7768e"
-        // green "#9ece6a"
-        blue "#9ece6a"
-        yellow "#e0af68"
-        // blue "#7aa2f7"
-        green "#7aa2f7"
-        magenta "#bb9af7"
-        cyan "#7dcfff"
-        white "#a9b1d6"
-        orange "#ff9e64"
-    }
-}
-
-// Choose the theme that is specified in the themes section.
-// Default: default
-//
-theme "tokyonight_night"
-
 // The name of the default layout to load on startup
 // Default: "default"
 //
