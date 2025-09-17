@@ -10,7 +10,6 @@ shell = { program="/usr/bin/env", args = ["zellij"] }
 WINIT_X11_SCALE_FACTOR = "1.0"
 
 [font.normal]
-family = "Iosevka Fixed"
 
 [[keyboard.bindings]]
 action = "SpawnNewInstance"
