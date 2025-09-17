@@ -2,7 +2,7 @@
 import = ["local.toml"]
 
 [terminal]
-shell = "/usr/local/bin/zellij"
+shell = { program="/usr/bin/env", args = ["zellij"] }
 
 [env]
 # This is needed for the font size to not double in X11
