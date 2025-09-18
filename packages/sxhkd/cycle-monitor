@@ -1,5 +1,0 @@
-#!/bin/bash
-XRANDR_OUTPUT=$(xrandr | grep '\<connected')
-CONNECTED=$(echo "$XRANDR_OUTPUT" | grep mm | cut -d' ' -f 1 | head -n 1)
-DISCONNECTED=$(echo "$XRANDR_OUTPUT" | grep -v mm | cut -d' ' -f 1 | head -n 1)
-xrandr --output $CONNECTED --off --output $DISCONNECTED --auto
