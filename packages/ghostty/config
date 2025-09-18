@@ -1,0 +1,4 @@
+macos-option-as-alt = left
+
+# colorscheme
+config-file = ./vague
