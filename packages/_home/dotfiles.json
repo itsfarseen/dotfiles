@@ -4,6 +4,6 @@
   "files": {
     "bashrc": ".bashrc",
     "bash_profile": ".bash_profile",
-    "xprofile": ".xprofile",
+    "xprofile": ".xprofile"
   }
 }
