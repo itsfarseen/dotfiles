@@ -24,6 +24,7 @@ local lsps = {
 	"cssls",
 	"zls",
 	"ts_ls",
+	"sourcekit",
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	hls = {
 		filetypes = { "haskell", "lhaskell", "cabal" },
