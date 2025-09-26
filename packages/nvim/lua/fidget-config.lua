@@ -86,15 +86,10 @@ return {
 			y_padding = 0,      -- Padding from bottom edge of window boundary
 			align = "bottom",   -- How to align the notification window
 			relative = "editor", -- What the notification window position is relative to
+			avoid = { "NvimTree" }, -- disable in NvimTree window
 		},
 	},
 
-	-- Options related to integrating with other plugins
-	integration = {
-		["nvim-tree"] = {
-			enable = true, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
-		},
-	},
 
 	-- Options related to logging
 	logger = {
