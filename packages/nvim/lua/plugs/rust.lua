@@ -3,9 +3,12 @@ vim.g.rustaceanvim = {
 	tools = {
 		autoSetHints = true,
 		inlay_hints = { only_current_line = false },
+		enable_clippy = false,
 	},
 	server = {
 		on_attach = on_attach,
+		ra_multiplex = { enable = true, host = "127.0.0.1", port = 27631 },
+		standalone = false,
 		default_settings = {
 			["rust-analyzer"] = {
 				cargo = {
