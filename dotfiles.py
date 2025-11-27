@@ -6,7 +6,7 @@ import os
 import platform
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Union
+from typing import Dict, List, Optional, Set
 
 
 def get_platform() -> str:
@@ -57,15 +57,21 @@ class PackageConfig:
         known_fields = {"platforms", "location", "subdir", "files", "exclude", "ignore"}
         unknown_fields = set(config.keys()) - known_fields
         if unknown_fields:
-            print(f"Warning: Unknown fields in {name}/dotfiles.json: {', '.join(unknown_fields)}")
+            print(
+                f"Warning: Unknown fields in {name}/dotfiles.json: {', '.join(unknown_fields)}"
+            )
 
         # Validate files mapping for top-level renames only
         if self.files and isinstance(self.files, dict):
             for source, target in self.files.items():
                 if "/" in source or "\\" in source:
-                    raise ValueError(f"Files mapping source must be top-level filename in {name}: {source}")
+                    raise ValueError(
+                        f"Files mapping source must be top-level filename in {name}: {source}"
+                    )
                 if "/" in target or "\\" in target:
-                    raise ValueError(f"Files mapping target must be top-level filename in {name}: {source} -> {target}")
+                    raise ValueError(
+                        f"Files mapping target must be top-level filename in {name}: {source} -> {target}"
+                    )
 
     def is_platform_compatible(self, current_platform: str) -> bool:
         """Check if this package is compatible with the current platform."""
@@ -105,7 +111,9 @@ class PackageConfig:
             target = self.files.get(source_file, source_file)
             # Validate that it's only a filename rename, not a path change
             if "/" in target or "\\" in target:
-                raise ValueError(f"Files mapping only supports filename renames, not path changes: {source_file} -> {target}")
+                raise ValueError(
+                    f"Files mapping only supports filename renames, not path changes: {source_file} -> {target}"
+                )
             return target
         return source_file
 
@@ -149,7 +157,34 @@ def discover_packages(packages_dir: Path) -> List[PackageConfig]:
     return packages
 
 
-def install_package(package: PackageConfig, current_platform: str, dry_run: bool = False) -> bool:
+def is_broken_symlink(path: Path) -> bool:
+    """Check if path is a broken symlink."""
+    return path.is_symlink() and not path.exists()
+
+
+def remove_broken_symlink(path: Path, force: bool) -> bool:
+    """Attempt to remove a broken symlink if force is True.
+
+    Returns:
+        True if successfully removed
+        False if removal failed or force is False
+    """
+    if not force:
+        return False
+
+    try:
+        path.unlink()
+        return True
+    except Exception:
+        return False
+
+
+def install_package(
+    package: PackageConfig,
+    current_platform: str,
+    dry_run: bool = False,
+    force: bool = False,
+) -> bool:
     """Install or check a single package. Returns True if successful/installed."""
     if package.ignore:
         print(f"⏭ {package.name} (ignored)")
@@ -177,6 +212,15 @@ def install_package(package: PackageConfig, current_platform: str, dry_run: bool
     if target_subdir:
         final_target_dir = target_location / target_subdir
         if not dry_run:
+            # Check if target directory is a broken symlink and remove it if force is enabled
+            if is_broken_symlink(final_target_dir):
+                if remove_broken_symlink(final_target_dir, force):
+                    print(f"🗑 Removed broken symlink: {final_target_dir}")
+                else:
+                    print(
+                        f"⚠ {package.name} (skipped - target directory is a broken symlink, use --force to remove)"
+                    )
+                    return False
             final_target_dir.mkdir(parents=True, exist_ok=True)
     else:
         final_target_dir = target_location
@@ -226,6 +270,21 @@ def install_package(package: PackageConfig, current_platform: str, dry_run: bool
             else:
                 print(f"  ⚠ {source_file} → {target_path} (file exists, not symlink)")
                 continue
+        elif is_broken_symlink(target_path):
+            # Target is a broken symlink
+            if dry_run:
+                suffix = ", will remove with --force" if force else ""
+                print(f"  ✗ {source_file} → {target_path} (broken symlink{suffix})")
+                continue
+
+            if remove_broken_symlink(target_path, force):
+                print(f"  🗑 {source_file} → {target_path} (removed broken symlink)")
+                # Fall through to create new symlink
+            else:
+                print(
+                    f"  ⚠ {source_file} → {target_path} (broken symlink, use --force to remove)"
+                )
+                continue
         else:
             if dry_run:
                 print(f"  ✗ {source_file} → {target_path} (missing)")
@@ -251,9 +310,7 @@ def main():
         description=f"Dotfiles manager (detected platform: {get_platform()})"
     )
     parser.add_argument(
-        "--platform",
-        default=get_platform(),
-        help="Override platform detection"
+        "--platform", default=get_platform(), help="Override platform detection"
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
@@ -263,6 +320,9 @@ def main():
 
     # Install command
     install_parser = subparsers.add_parser("install", help="Install dotfiles")
+    install_parser.add_argument(
+        "--force", action="store_true", help="Remove broken symlinks before installing"
+    )
 
     args = parser.parse_args()
 
@@ -277,12 +337,13 @@ def main():
         for package in packages:
             install_package(package, args.platform, dry_run=True)
     elif args.command == "install":
+        force = getattr(args, "force", False)
         success_count = 0
         total_packages = 0
         for package in packages:
             if not package.ignore and package.is_platform_compatible(args.platform):
                 total_packages += 1
-                if install_package(package, args.platform, dry_run=False):
+                if install_package(package, args.platform, dry_run=False, force=force):
                     success_count += 1
         if total_packages > 0:
             print(f"\nSuccessfully installed {success_count}/{total_packages} packages")
