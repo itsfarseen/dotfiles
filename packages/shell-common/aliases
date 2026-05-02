@@ -21,6 +21,9 @@ alias grs='git rebase --skip';
 alias gl='git log --graph --oneline';
 alias gla='git log --graph --oneline --all';
 alias glg='git log';
+alias gw='git worktree';
+alias gwls='git worktree list';
+alias gwr='git worktree repair';
 
 alias lt='tree --gitignore -L 5'
 
