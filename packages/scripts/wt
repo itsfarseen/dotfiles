@@ -1,0 +1,498 @@
+#!/usr/bin/env python3
+"""wt — Git worktree manager. Requires fzf."""
+
+import json
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+CACHE_PATH = Path.home() / ".cache" / "wt.json"
+
+
+# --- Utils ---
+
+def die(msg):
+    print(f"error: {msg}", file=sys.stderr)
+    sys.exit(1)
+
+
+def emit_cd(path):
+    cd_file = os.environ.get("__FISH_WRAPPER_CD_OUTPUT")
+    if cd_file:
+        Path(cd_file).write_text(str(path))
+
+
+def require_fzf():
+    if not shutil.which("fzf"):
+        die("fzf is required but not found. Install it first.")
+
+
+def align_columns(items, sep="\t"):
+    """Pad all columns so they align."""
+    parts = [item.split(sep) for item in items]
+    ncols = max(len(p) for p in parts)
+    widths = []
+    for col in range(ncols - 1):  # last column doesn't need padding
+        w = max((len(p[col]) for p in parts if col < len(p)), default=0)
+        widths.append(w)
+    result = []
+    for p in parts:
+        cols = []
+        for i, val in enumerate(p):
+            if i < len(widths):
+                cols.append(f"{val:<{widths[i]}}")
+            else:
+                cols.append(val)
+        result.append("  ".join(cols))
+    return result
+
+
+def fzf(items, multi=False, prompt="> "):
+    """Run fzf with display items. Returns selected index(es).
+
+    Items are aligned into columns (tab-separated → padded).
+    Returns a list of indices if multi=True, or a single index (or None).
+    """
+    require_fzf()
+    if not items:
+        return [] if multi else None
+    display = align_columns(items)
+    # Prefix each line with its index for reliable lookup
+    numbered = [f"{i}\t{line}" for i, line in enumerate(display)]
+    cmd = ["fzf", "--prompt", prompt, "--reverse", "--no-sort",
+           "--with-nth=2..", "--delimiter=\t"]
+    if multi:
+        cmd.append("--multi")
+    try:
+        result = subprocess.run(
+            cmd, input="\n".join(numbered), capture_output=True, text=True
+        )
+    except KeyboardInterrupt:
+        return [] if multi else None
+    if result.returncode != 0:
+        return [] if multi else None
+    indices = []
+    for line in result.stdout.strip().split("\n"):
+        if line:
+            indices.append(int(line.split("\t")[0]))
+    return indices if multi else (indices[0] if indices else None)
+
+
+def confirm(msg):
+    print(msg, file=sys.stderr)
+    try:
+        answer = input("Confirm? [y/N] ").strip().lower()
+    except (EOFError, KeyboardInterrupt):
+        return False
+    return answer in ("y", "yes")
+
+
+# --- Git helpers ---
+
+def run_git(*args, cwd=None, check=True):
+    result = subprocess.run(
+        ["git", *args], capture_output=True, text=True, cwd=cwd
+    )
+    if check and result.returncode != 0:
+        die(f"git {args[0]}: {result.stderr.strip()}")
+    return result
+
+
+def is_inside_git_repo():
+    r = run_git("rev-parse", "--is-inside-work-tree", check=False)
+    return r.returncode == 0
+
+
+def get_repo_root():
+    return Path(run_git("rev-parse", "--show-toplevel").stdout.strip())
+
+
+def get_worktrees():
+    """Returns list of dicts with keys: path, branch, head, bare."""
+    raw = run_git("worktree", "list", "--porcelain").stdout
+    worktrees = []
+    current = {}
+    for line in raw.split("\n"):
+        if not line:
+            if current:
+                worktrees.append(current)
+                current = {}
+            continue
+        if line.startswith("worktree "):
+            current["path"] = line[len("worktree "):]
+        elif line.startswith("HEAD "):
+            current["head"] = line[len("HEAD "):]
+        elif line.startswith("branch "):
+            ref = line[len("branch "):]
+            current["branch"] = ref.removeprefix("refs/heads/")
+        elif line == "bare":
+            current["bare"] = True
+        elif line == "detached":
+            current["branch"] = "(detached)"
+    if current:
+        worktrees.append(current)
+    return worktrees
+
+
+def get_main_branch(worktrees):
+    """Find the main/master worktree entry. Fallback to first."""
+    for wt in worktrees:
+        if wt.get("branch") in ("main", "master"):
+            return wt
+    return worktrees[0] if worktrees else None
+
+
+def branch_exists(name):
+    r = run_git("show-ref", "--verify", "--quiet", f"refs/heads/{name}", check=False)
+    return r.returncode == 0
+
+
+def get_branches_by_recency():
+    """Returns list of (branch_name, relative_date) sorted by most recent."""
+    r = run_git(
+        "for-each-ref", "--sort=-committerdate",
+        "--format=%(refname:short)\t%(committerdate:relative)",
+        "refs/heads/",
+    )
+    branches = []
+    for line in r.stdout.strip().split("\n"):
+        if not line:
+            continue
+        parts = line.split("\t", 1)
+        name = parts[0]
+        date = parts[1] if len(parts) > 1 else ""
+        branches.append((name, date))
+    return branches
+
+
+# --- Cache ---
+
+def load_cache():
+    if not CACHE_PATH.exists():
+        return {"repos": []}
+    try:
+        data = json.loads(CACHE_PATH.read_text())
+        if isinstance(data, dict) and "repos" in data:
+            data["repos"] = [p for p in data["repos"] if Path(p).is_dir()]
+            return data
+    except (json.JSONDecodeError, KeyError):
+        pass
+    return {"repos": []}
+
+
+def save_cache(cache):
+    CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CACHE_PATH.write_text(json.dumps(cache, indent=2) + "\n")
+
+
+def update_cache(cache):
+    if not is_inside_git_repo():
+        return cache
+    worktrees = get_worktrees()
+    main_wt = get_main_branch(worktrees)
+    if main_wt:
+        path = main_wt["path"]
+        if path not in cache["repos"]:
+            cache["repos"].append(path)
+    return cache
+
+
+# --- Worktree path logic ---
+
+def branch_to_dirname(branch):
+    return branch.replace("/", "--")
+
+
+def new_worktree_path(branch):
+    """Determine where to create a new worktree based on current location."""
+    cwd = str(Path.cwd())
+    dirname = branch_to_dirname(branch)
+    if "/worktrees/" in cwd or cwd.endswith("/worktrees"):
+        # Inside a worktrees dir — find the worktrees parent
+        # e.g. /projects/Foo/worktrees/main -> /projects/Foo/worktrees/
+        idx = cwd.find("/worktrees")
+        worktrees_dir = Path(cwd[:idx]) / "worktrees"
+        return worktrees_dir / dirname
+    else:
+        # Single checkout — create worktrees/ as sibling to repo folder
+        repo_root = get_repo_root()
+        worktrees_dir = repo_root.parent / "worktrees"
+        return worktrees_dir / dirname
+
+
+# --- Commands ---
+
+def cmd_list_worktrees():
+    worktrees = get_worktrees()
+    if not worktrees:
+        die("no worktrees found")
+    cwd = Path.cwd()
+    items = []
+    for wt in worktrees:
+        try:
+            rel = os.path.relpath(wt["path"], cwd)
+        except ValueError:
+            rel = wt["path"]
+        branch = wt.get("branch", "(unknown)")
+        items.append(f"{branch}\t{rel}")
+    idx = fzf(items, prompt="worktree> ")
+    if idx is not None:
+        emit_cd(Path(worktrees[idx]["path"]))
+
+
+def cmd_list_repos(cache):
+    repos = sorted(cache.get("repos", []))
+    if not repos:
+        die("no known repos. Run wt inside a git repo first.")
+    items = []
+    for p in repos:
+        pp = Path(p)
+        # If inside a worktrees/ dir, the repo name is the parent of worktrees/
+        if "worktrees" in pp.parts:
+            idx = pp.parts.index("worktrees")
+            name = pp.parts[idx - 1] if idx > 0 else pp.name
+        else:
+            name = pp.name
+        r = run_git("rev-parse", "--abbrev-ref", "HEAD", cwd=p, check=False)
+        branch = r.stdout.strip() if r.returncode == 0 else "?"
+        items.append(f"{name}\t{branch}\t{p}")
+    idx = fzf(items, prompt="repo> ")
+    if idx is not None:
+        emit_cd(repos[idx])
+
+
+def cmd_prune():
+    worktrees = get_worktrees()
+    main_wt = get_main_branch(worktrees)
+    # First entry in git worktree list is always the main working tree
+    main_repo = worktrees[0]["path"] if worktrees else None
+    prunable = [wt for wt in worktrees
+                if wt["path"] != main_repo and wt["path"] != main_wt["path"]]
+    if not prunable:
+        die("no worktrees to prune (only main worktree exists)")
+    cwd = Path.cwd()
+    items = []
+    for wt in prunable:
+        try:
+            rel = os.path.relpath(wt["path"], cwd)
+        except ValueError:
+            rel = wt["path"]
+        branch = wt.get("branch", "(unknown)")
+        items.append(f"{branch}\t{rel}")
+    indices = fzf(items, multi=True, prompt="prune> ")
+    if not indices:
+        return
+    selected = [prunable[i] for i in indices]
+    print("Will remove:", file=sys.stderr)
+    for wt in selected:
+        print(f"  {wt.get('branch', '(unknown)')}\t{wt['path']}", file=sys.stderr)
+    if not confirm(""):
+        print("Cancelled.", file=sys.stderr)
+        return
+    for wt in selected:
+        p = wt["path"]
+        r = run_git("worktree", "remove", "--force", p, check=False)
+        if r.returncode != 0:
+            print(f"  git worktree remove failed for {p}: {r.stderr.strip()}", file=sys.stderr)
+        if Path(p).exists():
+            shutil.rmtree(p, ignore_errors=True)
+        print(f"  removed {p}", file=sys.stderr)
+
+
+def cmd_new(branch):
+    if branch_exists(branch):
+        die(f"branch '{branch}' already exists")
+    target = new_worktree_path(branch)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    run_git("worktree", "add", str(target), "-b", branch)
+    print(f"Created worktree for '{branch}' at {target}", file=sys.stderr)
+    emit_cd(target)
+
+
+def cmd_checkout(branch=None):
+    if branch is None:
+        branches = get_branches_by_recency()
+        # Exclude branches that already have a worktree
+        worktrees = get_worktrees()
+        wt_branches = {wt.get("branch") for wt in worktrees}
+        available = [(n, d) for n, d in branches if n not in wt_branches]
+        if not available:
+            die("no branches available to checkout")
+        items = [f"{n}\t{d}" for n, d in available]
+        idx = fzf(items, prompt="checkout> ")
+        if idx is None:
+            return
+        branch = available[idx][0]
+    else:
+        if not branch_exists(branch):
+            die(f"branch '{branch}' does not exist")
+    target = new_worktree_path(branch)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    run_git("worktree", "add", str(target), branch)
+    print(f"Checked out '{branch}' at {target}", file=sys.stderr)
+    emit_cd(target)
+
+
+def cmd_substring_match(words):
+    worktrees = get_worktrees()
+    matches = []
+    for wt in worktrees:
+        branch = wt.get("branch", "")
+        if branch == "(detached)":
+            continue
+        lower = branch.lower()
+        if all(w.lower() in lower for w in words):
+            matches.append(wt)
+    if not matches:
+        die(f"no worktree matching: {' '.join(words)}")
+    matches.sort(key=lambda wt: wt.get("branch", ""))
+    emit_cd(matches[0]["path"])
+
+
+def cmd_substring_match_repos(words, cache):
+    repos = cache.get("repos", [])
+    matches = []
+    for p in repos:
+        name = Path(p).name.lower()
+        if all(w.lower() in name for w in words):
+            matches.append(p)
+    if not matches:
+        die(f"no repo matching: {' '.join(words)}")
+    matches.sort()
+    emit_cd(matches[0])
+
+
+# --- Help ---
+
+def print_help():
+    print("""\
+Usage: wt <command> [args...]
+
+Commands:
+  repo                          Manage cached git repositories
+  branch                        Manage worktree branches
+
+Quick access (no command):
+  wt                            Branch list (in repo) or repo list (outside)
+
+Repo commands:
+  wt repo                       Interactive repo selector (fzf)
+  wt repo <word...>             Jump to repo matching <word>
+
+Branch commands:
+  wt branch                     Interactive worktree selector (fzf)
+  wt branch <word...>           Jump to worktree matching <word>
+  wt branch --new <name>        Create new worktree + branch
+  wt branch --checkout [name]   Checkout existing branch into new worktree
+  wt branch --prune             Multi-select worktrees to remove
+
+Options:
+  -h, --help                    Show help (also works per-command)
+
+Shell shortcuts:
+  wtr [args]                    Alias for 'wt repo [args]'
+  wtb [args]                    Alias for 'wt branch [args]'\
+""", file=sys.stderr)
+    sys.exit(0)
+
+
+def print_repo_help():
+    print("""\
+Usage: wt repo [args...]
+
+Commands:
+  wt repo                       Interactive repo selector (fzf)
+  wt repo <word...>             Jump to first repo matching all words
+
+Repos are cached automatically when you run wt inside a git repository.
+Shell shortcut: wtr\
+""", file=sys.stderr)
+    sys.exit(0)
+
+
+def print_branch_help():
+    print("""\
+Usage: wt branch [args...]
+
+Commands:
+  wt branch                     Interactive worktree selector (fzf)
+  wt branch <word...>           Jump to first worktree matching all words
+  wt branch --new <name>        Create new branch + worktree
+  wt branch --checkout [name]   Checkout existing branch into new worktree
+                                 (interactive fzf selection if name omitted)
+  wt branch --prune             Multi-select worktrees to remove
+
+Worktrees are created under a worktrees/ sibling directory.
+Shell shortcut: wtb\
+""", file=sys.stderr)
+    sys.exit(0)
+
+
+# --- Dispatch ---
+
+def require_repo():
+    if not is_inside_git_repo():
+        die("this command requires being inside a git repo")
+
+
+def cmd_repo_dispatch(args, cache):
+    if args and args[0] in ("--help", "-h"):
+        print_repo_help()
+    elif not args:
+        cmd_list_repos(cache)
+    else:
+        cmd_substring_match_repos(args, cache)
+
+
+def cmd_branch_dispatch(args):
+    if args and args[0] in ("--help", "-h"):
+        print_branch_help()
+    elif args and args[0] == "--new":
+        require_repo()
+        if len(args) < 2:
+            die("--new requires a branch name")
+        cmd_new(args[1])
+    elif args and args[0] == "--checkout":
+        require_repo()
+        cmd_checkout(args[1] if len(args) > 1 else None)
+    elif args and args[0] == "--prune":
+        require_repo()
+        cmd_prune()
+    elif not args:
+        require_repo()
+        cmd_list_worktrees()
+    else:
+        require_repo()
+        cmd_substring_match(args)
+
+
+# --- Main ---
+
+def main():
+    cache = load_cache()
+    in_repo = is_inside_git_repo()
+    if in_repo:
+        cache = update_cache(cache)
+    save_cache(cache)
+
+    args = sys.argv[1:]
+
+    if not args:
+        if in_repo:
+            cmd_list_worktrees()
+        else:
+            cmd_list_repos(cache)
+    elif args[0] in ("--help", "-h"):
+        print_help()
+    elif args[0] == "repo":
+        cmd_repo_dispatch(args[1:], cache)
+    elif args[0] == "branch":
+        cmd_branch_dispatch(args[1:])
+    else:
+        die(f"unknown command: {args[0]}. Run 'wt --help' for usage.")
+
+
+if __name__ == "__main__":
+    main()
