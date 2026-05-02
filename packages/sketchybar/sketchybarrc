@@ -1,0 +1,83 @@
+#!/bin/bash
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+sketchybar --bar height=37 \
+               position=top \
+               color=0xff000000 \
+               padding_left=10 \
+               padding_right=10
+
+sketchybar --default icon.font="SF Pro:Semibold:13.0" \
+                     label.font="SF Pro:Semibold:13.0" \
+                     icon.color=0xffffffff \
+                     label.color=0xffffffff \
+                     padding_left=2 \
+                     padding_right=2
+
+# ── Helpers ───────────────────────────────────────────
+_position="left"
+_sep_count=0
+
+begin_right() {
+  _position="right"
+}
+
+add_item() {
+  local name=$1; shift
+  sketchybar --add item "$name" "$_position" "$@"
+}
+
+add_separator() {
+  _sep_count=$((_sep_count + 1))
+  local name="sep.${_position}.${_sep_count}"
+  sketchybar --add item "$name" "$_position" \
+             --set "$name" icon='⋮' \
+                           icon.font="SF Pro:Semibold:13.0" \
+                           icon.color=0xffffffff \
+                           label.drawing=on \
+                           background.color=0x00ffffff \
+                           icon.align=right \
+                           icon.padding_right=10 \
+                           width=20
+}
+
+# ── Left ──────────────────────────────────────────────
+for sid in 1 2 3 4 5 6 7 8 9 0; do
+  add_item space.$sid \
+           --set space.$sid label="$sid" \
+                            background.color=0x66ffffff \
+                            background.corner_radius=0 \
+                            background.height=20 \
+                            background.drawing=off \
+                            label.padding_left=5 \
+                            label.padding_right=5 \
+                            click_script="aerospace workspace $sid"
+done
+
+# Initial workspace state
+"$HOME/.config/aerospace/plugins/aerospace"
+
+add_separator
+
+add_item app_name \
+         --set app_name script="$PLUGIN_DIR/app_name.sh" \
+                        icon.drawing=off \
+                        label.color=0xffaaaaaa \
+         --subscribe app_name front_app_switched
+
+# ── Right ─────────────────────────────────────────────
+begin_right
+
+add_item clock \
+         --set clock script="$PLUGIN_DIR/clock.sh" \
+                     update_freq=10 \
+                     icon.drawing=off
+
+add_separator
+
+add_item battery \
+         --set battery script="$PLUGIN_DIR/battery.sh" \
+                       update_freq=120 \
+         --subscribe battery power_source_change system_woke
+
+sketchybar --update
