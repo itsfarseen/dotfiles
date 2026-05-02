@@ -2,3 +2,8 @@
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 export PATH="$PATH:$HOME/.local/bin"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/farseen/.lmstudio/bin"
+# End of LM Studio CLI section
+

@@ -3,3 +3,10 @@ source $HOME/.config/shell-common/environment
 
 export PATH="/home/farseen/.local/share/solana/install/active_release/bin:$PATH"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/farseen/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
+export PATH="/Users/farseen/.local/share/solana/install/active_release/bin:$PATH"
