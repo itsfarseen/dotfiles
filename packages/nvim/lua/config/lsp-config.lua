@@ -19,12 +19,20 @@ local lsps = {
 	"gopls",
 	"rnix",
 	"svelte",
-	"ccls",
+	"clangd",
 	"html",
 	"cssls",
 	"zls",
 	"ts_ls",
-	"sourcekit",
+	sourcekit = {
+		filetypes = {
+			"swift",
+			"objc",
+			"objcpp",
+			-- "c", "cpp"
+			-- let ccls handle c/c++
+		},
+	},
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	hls = {
 		filetypes = { "haskell", "lhaskell", "cabal" },
