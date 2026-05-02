@@ -2,4 +2,4 @@ default:
     just build
 
 build:
-    cd plugins/aerospace-tools && go build -o ../aerotools .
+    cd packages/aerospace/plugins/aerospace-tools && go build -o ../aerotools .
