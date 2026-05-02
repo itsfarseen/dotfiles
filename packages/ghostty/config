@@ -1,4 +1,58 @@
 macos-option-as-alt = left
 
+# Disable dimming of unfocused splits
+unfocused-split-opacity = 1
+
 # colorscheme
-config-file = ./vague
+config-file = ./catpuccin-mocha
+# background-opacity = 0.85
+# background-blur = true
+macos-titlebar-style = hidden
+# macos-titlebar-style = tabs
+# macos-window-buttons = hidden
+# window-decoration = none
+window-save-state = never
+
+# Split creation
+keybind = alt+shift+h=new_split:left
+keybind = alt+shift+j=new_split:down
+keybind = alt+shift+k=new_split:up
+keybind = alt+shift+l=new_split:right
+
+# Split navigation
+keybind = alt+h=goto_split:left
+keybind = alt+j=goto_split:down
+keybind = alt+k=goto_split:up
+keybind = alt+l=goto_split:right
+
+# Tab navigation
+keybind = alt+shift+left_bracket=new_tab
+keybind = alt+shift+right_bracket=new_tab
+keybind = alt+left_bracket=previous_tab
+keybind = alt+right_bracket=next_tab
+
+# Direct tab access
+keybind = alt+1=goto_tab:1
+keybind = alt+2=goto_tab:2
+keybind = alt+3=goto_tab:3
+keybind = alt+4=goto_tab:4
+keybind = alt+5=goto_tab:5
+keybind = alt+6=goto_tab:6
+keybind = alt+7=goto_tab:7
+keybind = alt+8=goto_tab:8
+keybind = alt+9=goto_tab:9
+keybind = alt+0=last_tab
+
+keybind = alt+z=toggle_split_zoom
+keybind = alt+\=equalize_splits
+
+keybind = alt+shift+left=resize_split:left,20
+keybind = alt+shift+down=resize_split:down,20
+keybind = alt+shift+up=resize_split:up,20
+keybind = alt+shift+right=resize_split:right,20
+
+copy-on-select = clipboard
+
+font-thicken = true
+font-thicken-strength = 255
+font-size = 15
