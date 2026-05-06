@@ -19,7 +19,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 10
+accordion-padding = 50
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
@@ -36,7 +36,7 @@ default-root-container-orientation = 'auto'
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-exec-on-workspace-change = ['/bin/bash', '-c', 'FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE $HOME/.config/aerospace/plugins/aerotools on-workspace-change']
+# exec-on-workspace-change = ['/bin/bash', '-c', 'FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE $HOME/.config/aerospace/plugins/aerotools on-workspace-change']
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -148,16 +148,16 @@ on-mode-changed = []
     alt-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-    alt-1 = 'workspace 1'
-    alt-2 = 'workspace 2'
-    alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
-    alt-5 = 'workspace 5'
-    alt-6 = 'workspace 6'
-    alt-7 = 'workspace 7'
-    alt-8 = 'workspace 8'
-    alt-9 = 'workspace 9'
-    alt-0 = 'workspace 0'
+    alt-1 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 1'
+    alt-2 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 2'
+    alt-3 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 3'
+    alt-4 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 4'
+    alt-5 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 5'
+    alt-6 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 6'
+    alt-7 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 7'
+    alt-8 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 8'
+    alt-9 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 9'
+    alt-0 = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace 0'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
@@ -172,11 +172,11 @@ on-mode-changed = []
     alt-shift-0 = 'move-node-to-workspace 0'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-    alt-backtick = 'workspace-back-and-forth'
+    alt-backtick = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools switch-workspace-back-and-forth'
     alt-leftSquareBracket = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools workspace-prev'
     alt-rightSquareBracket = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools workspace-next'
-    alt-shift-leftSquareBracket = 'workspace prev'
-    alt-shift-rightSquareBracket = 'workspace next'
+    alt-shift-leftSquareBracket = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools workspace-prev'
+    alt-shift-rightSquareBracket = 'exec-and-forget $HOME/.config/aerospace/plugins/aerotools workspace-next'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     # alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 

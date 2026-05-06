@@ -38,10 +38,22 @@ func main() {
 	switch os.Args[1] {
 	case "sketchybar-update":
 		cmdSketchybarUpdate()
+	case "switch-workspace":
+		if len(os.Args) < 3 {
+			trace("switch-workspace: missing target argument")
+			return
+		}
+		cmdSwitchWorkspace(os.Args[2])
+	case "switch-workspace-back-and-forth":
+		cmdSwitchWorkspaceBackAndForth()
 	case "workspace-next":
-		switchWorkspace(1)
+		if target := resolveRelativeWorkspace(1); target != "" {
+			cmdSwitchWorkspace(target)
+		}
 	case "workspace-prev":
-		switchWorkspace(-1)
+		if target := resolveRelativeWorkspace(-1); target != "" {
+			cmdSwitchWorkspace(target)
+		}
 	case "on-workspace-change":
 		cmdOnWorkspaceChange()
 	}
@@ -236,10 +248,10 @@ func movePinnedWindows(focused string, windows []windowInfo, regexes []*regexp.R
 	}
 }
 
-func switchWorkspace(direction int) {
+func resolveRelativeWorkspace(direction int) string {
 	out, err := exec.Command("aerospace", "list-workspaces", "--monitor", "focused", "--empty", "no").Output()
 	if err != nil {
-		return
+		return ""
 	}
 	nonEmptySet := make(map[string]bool)
 	for _, ws := range strings.Fields(strings.TrimSpace(string(out))) {
@@ -248,7 +260,7 @@ func switchWorkspace(direction int) {
 
 	out, err = exec.Command("aerospace", "list-workspaces", "--focused").Output()
 	if err != nil {
-		return
+		return ""
 	}
 	current := strings.TrimSpace(string(out))
 
@@ -260,20 +272,69 @@ func switchWorkspace(direction int) {
 		}
 	}
 	if idx == -1 {
-		return
+		return ""
 	}
 
 	n := len(workspaces)
 	for step := 1; step < n; step++ {
 		candidate := workspaces[(idx+direction*step+n*step)%n]
 		if nonEmptySet[candidate] {
-			exec.Command("aerospace", "workspace", candidate).Run()
-			return
+			return candidate
 		}
 	}
+	return ""
 }
 
 // --- Orchestrators ---
+
+func cmdSwitchWorkspace(target string) {
+	cfg := loadConfig()
+	regexes := compilePinRegexes(cfg.pinWindows)
+	windows := listAllWindows()
+
+	trace("switch-workspace: switching to %s", target)
+	exec.Command("aerospace", "workspace", target).Run()
+
+	movePinnedWindows(target, windows, regexes)
+
+	if cfg.sketchybarUpdate {
+		windows = listAllWindows()
+		wsApps := buildWsApps(windows, regexes)
+		updateSketchybar(target, wsApps)
+	}
+}
+
+func cmdSwitchWorkspaceBackAndForth() {
+	beforeWs := strings.TrimSpace(func() string {
+		out, _ := exec.Command("aerospace", "list-workspaces", "--focused").Output()
+		return string(out)
+	}())
+
+	exec.Command("aerospace", "workspace-back-and-forth").Run()
+
+	afterWs := strings.TrimSpace(func() string {
+		out, _ := exec.Command("aerospace", "list-workspaces", "--focused").Output()
+		return string(out)
+	}())
+
+	if beforeWs == afterWs {
+		trace("switch-workspace-back-and-forth: no-op (stayed on %s)", beforeWs)
+		return
+	}
+	trace("switch-workspace-back-and-forth: %s -> %s", beforeWs, afterWs)
+
+	cfg := loadConfig()
+	regexes := compilePinRegexes(cfg.pinWindows)
+	windows := listAllWindows()
+
+	movePinnedWindows(afterWs, windows, regexes)
+
+	if cfg.sketchybarUpdate {
+		windows = listAllWindows()
+		wsApps := buildWsApps(windows, regexes)
+		updateSketchybar(afterWs, wsApps)
+	}
+}
 
 func cmdSketchybarUpdate() {
 	cfg := loadConfig()

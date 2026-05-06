@@ -51,11 +51,11 @@ for sid in 1 2 3 4 5 6 7 8 9 0; do
                             background.drawing=off \
                             label.padding_left=5 \
                             label.padding_right=5 \
-                            click_script="aerospace workspace $sid"
+                            click_script="$HOME/.config/aerospace/plugins/aerotools switch-workspace $sid"
 done
 
 # Initial workspace state
-"$HOME/.config/aerospace/plugins/aerospace"
+"$HOME/.config/aerospace/plugins/aerotools" sketchybar-update
 
 add_separator
 
