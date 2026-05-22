@@ -167,6 +167,76 @@ def get_branches_by_recency():
     return branches
 
 
+def fetch_all_remotes():
+    """Fetch all remotes. Returns True on success, False on failure."""
+    print("Fetching remotes...", file=sys.stderr)
+    r = run_git("fetch", "--all", check=False)
+    if r.returncode != 0:
+        print(f"warning: fetch failed, using cached refs: {r.stderr.strip()}", file=sys.stderr)
+        return False
+    return True
+
+
+def find_branch_on_remote(name):
+    """Check if branch exists on any remote. Returns 'remote/branch' string or None."""
+    r = run_git("for-each-ref",
+                "--format=%(refname:short)\t%(symref)",
+                f"refs/remotes/*/{name}")
+    for line in r.stdout.strip().split("\n"):
+        if not line:
+            continue
+        parts = line.split("\t", 1)
+        ref_short = parts[0]
+        symref = parts[1] if len(parts) > 1 else ""
+        if symref:
+            continue  # skip symbolic refs like origin/HEAD
+        return ref_short  # e.g. "origin/feature-x"
+    return None
+
+
+def get_all_branches_by_recency():
+    """Returns all local + remote-only branches sorted by commit time.
+
+    Each entry: (branch_name, date, remote_or_none).
+    Local branches have remote_or_none=None. Remote-only branches show the
+    remote name. If a branch exists both locally and on a remote, it appears
+    once as local. Deduplicated across remotes (first/most-recent wins).
+    """
+    r = run_git(
+        "for-each-ref", "--sort=-committerdate",
+        "--format=%(refname)\t%(refname:short)\t%(committerdate:relative)\t%(symref)",
+        "refs/heads/", "refs/remotes/",
+    )
+    local_set = set()
+    seen = set()
+    result = []
+    for line in r.stdout.strip().split("\n"):
+        if not line:
+            continue
+        parts = line.split("\t", 3)
+        refname = parts[0]
+        ref_short = parts[1]
+        date = parts[2] if len(parts) > 2 else ""
+        symref = parts[3] if len(parts) > 3 else ""
+        if symref:
+            continue
+        if refname.startswith("refs/heads/"):
+            local_set.add(ref_short)
+            seen.add(ref_short)
+            result.append((ref_short, date, None))
+        elif refname.startswith("refs/remotes/"):
+            slash_idx = ref_short.find("/")
+            if slash_idx < 0:
+                continue
+            remote = ref_short[:slash_idx]
+            branch = ref_short[slash_idx + 1:]
+            if branch in local_set or branch in seen:
+                continue
+            seen.add(branch)
+            result.append((branch, date, remote))
+    return result
+
+
 # --- Cache ---
 
 def load_cache():
@@ -315,25 +385,45 @@ def cmd_new(branch):
 
 
 def cmd_checkout(branch=None):
+    fetch_all_remotes()
+
     if branch is None:
-        branches = get_branches_by_recency()
-        # Exclude branches that already have a worktree
+        all_branches = get_all_branches_by_recency()
         worktrees = get_worktrees()
         wt_branches = {wt.get("branch") for wt in worktrees}
-        available = [(n, d) for n, d in branches if n not in wt_branches]
-        if not available:
+
+        items = []
+        entry_map = []  # parallel list: (branch_name, remote_or_none)
+        for n, d, remote in all_branches:
+            if n in wt_branches:
+                continue
+            if remote:
+                items.append(f"{n}\t[{remote}]\t{d}")
+            else:
+                items.append(f"{n}\t{d}")
+            entry_map.append((n, remote))
+
+        if not items:
             die("no branches available to checkout")
-        items = [f"{n}\t{d}" for n, d in available]
+
         idx = fzf(items, prompt="checkout> ")
         if idx is None:
             return
-        branch = available[idx][0]
+        branch, remote = entry_map[idx]
     else:
+        remote = None
         if not branch_exists(branch):
-            die(f"branch '{branch}' does not exist")
+            remote_ref = find_branch_on_remote(branch)
+            if remote_ref is None:
+                die(f"branch '{branch}' does not exist locally or on any remote")
+            remote = remote_ref[:remote_ref.find("/")]
+
     target = new_worktree_path(branch)
     target.parent.mkdir(parents=True, exist_ok=True)
-    run_git("worktree", "add", str(target), branch)
+    if remote:
+        run_git("worktree", "add", str(target), "-b", branch, "--track", f"{remote}/{branch}")
+    else:
+        run_git("worktree", "add", str(target), branch)
     print(f"Checked out '{branch}' at {target}", file=sys.stderr)
     emit_cd(target)
 
@@ -388,7 +478,7 @@ Branch commands:
   wt branch                     Interactive worktree selector (fzf)
   wt branch <word...>           Jump to worktree matching <word>
   wt branch --new <name>        Create new worktree + branch
-  wt branch --checkout [name]   Checkout existing branch into new worktree
+  wt branch --checkout [name]   Checkout branch into new worktree (supports remote branches)
   wt branch --prune             Multi-select worktrees to remove
 
 Options:
@@ -423,8 +513,10 @@ Commands:
   wt branch                     Interactive worktree selector (fzf)
   wt branch <word...>           Jump to first worktree matching all words
   wt branch --new <name>        Create new branch + worktree
-  wt branch --checkout [name]   Checkout existing branch into new worktree
+  wt branch --checkout [name]   Checkout branch into new worktree (supports remote branches)
                                  (interactive fzf selection if name omitted)
+                                 Fetches all remotes first. Remote-only branches are
+                                 shown with [remote] tags and checked out with tracking.
   wt branch --prune             Multi-select worktrees to remove
 
 Worktrees are created under a worktrees/ sibling directory.
