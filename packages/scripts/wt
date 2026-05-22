@@ -201,6 +201,15 @@ def update_cache(cache):
 
 # --- Worktree path logic ---
 
+def repo_display_name(path):
+    """Derive a human-friendly repo name from its path."""
+    pp = Path(path)
+    if "worktrees" in pp.parts:
+        idx = pp.parts.index("worktrees")
+        return pp.parts[idx - 1] if idx > 0 else pp.name
+    return pp.name
+
+
 def branch_to_dirname(branch):
     return branch.replace("/", "--")
 
@@ -248,13 +257,7 @@ def cmd_list_repos(cache):
         die("no known repos. Run wt inside a git repo first.")
     items = []
     for p in repos:
-        pp = Path(p)
-        # If inside a worktrees/ dir, the repo name is the parent of worktrees/
-        if "worktrees" in pp.parts:
-            idx = pp.parts.index("worktrees")
-            name = pp.parts[idx - 1] if idx > 0 else pp.name
-        else:
-            name = pp.name
+        name = repo_display_name(p)
         r = run_git("rev-parse", "--abbrev-ref", "HEAD", cwd=p, check=False)
         branch = r.stdout.strip() if r.returncode == 0 else "?"
         items.append(f"{name}\t{branch}\t{p}")
@@ -355,7 +358,7 @@ def cmd_substring_match_repos(words, cache):
     repos = cache.get("repos", [])
     matches = []
     for p in repos:
-        name = Path(p).name.lower()
+        name = repo_display_name(p).lower()
         if all(w.lower() in name for w in words):
             matches.append(p)
     if not matches:
