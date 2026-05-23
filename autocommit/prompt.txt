@@ -49,10 +49,13 @@ Examples from this repo's history:
 
 ## Output
 
-Output ONLY a bash script (no markdown fences, no explanation) that:
+Output ONLY the bash script — no markdown fences, no explanation, no preamble, no commentary before or after. The entire response must be the script and nothing else.
+
+The script must:
 - Starts with `#!/bin/bash` and `set -e`
 - For each logical commit: `git add <files>` then `git commit -m "<message>"`
 - Add a short comment before each group explaining what it does
 - Does NOT push to remote
+- Does NOT add any Co-Authored-By or Signed-off-by trailers to commit messages
 
 The current repo state (git status, git diff, untracked files) is appended below.
