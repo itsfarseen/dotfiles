@@ -3,8 +3,12 @@ macos-option-as-alt = left
 # Disable dimming of unfocused splits
 unfocused-split-opacity = 1
 
+# fucking split resize grabbing bug
+focus-follows-mouse = true
+
 # colorscheme
 config-file = ./catpuccin-mocha
+
 # background-opacity = 0.85
 # background-blur = true
 macos-titlebar-style = hidden
@@ -50,6 +54,10 @@ keybind = alt+shift+left=resize_split:left,20
 keybind = alt+shift+down=resize_split:down,20
 keybind = alt+shift+up=resize_split:up,20
 keybind = alt+shift+right=resize_split:right,20
+
+keybind = all:cmd+equal=increase_font_size:1
+keybind = all:cmd+minus=decrease_font_size:1
+keybind = all:ctrl+cmd+zero=reset_font_size
 
 copy-on-select = clipboard
 
