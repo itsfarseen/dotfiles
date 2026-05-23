@@ -39,3 +39,7 @@ alias dclf='docker-compose logs -f';
 alias dps='docker ps';
 
 alias zz='zellij';
+
+alias l='eza -1 --group-directories-first --git -l --no-time --no-user --no-permissions'
+alias la='eza -1 --group-directories-first --git -l --no-time --no-user --no-permissions -a'
+alias ll='eza -1 --group-directories-first --git -l'
