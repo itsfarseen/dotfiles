@@ -1,3 +1,5 @@
+font-family = Victor Mono
+
 macos-option-as-alt = left
 
 # Disable dimming of unfocused splits
@@ -7,13 +9,13 @@ unfocused-split-opacity = 1
 focus-follows-mouse = true
 
 # colorscheme
-config-file = ./catpuccin-mocha
+config-file = ./jellybeans-default
 
 # background-opacity = 0.85
 # background-blur = true
-macos-titlebar-style = hidden
+# macos-titlebar-style = hidden
 # macos-titlebar-style = tabs
-# macos-window-buttons = hidden
+macos-window-buttons = hidden
 # window-decoration = none
 window-save-state = never
 
@@ -62,5 +64,5 @@ keybind = all:ctrl+cmd+zero=reset_font_size
 copy-on-select = clipboard
 
 font-thicken = true
-font-thicken-strength = 255
-font-size = 15
+font-thicken-strength = 1
+font-size = 14
