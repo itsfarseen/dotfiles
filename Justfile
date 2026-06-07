@@ -1,5 +1,7 @@
-default:
-    just build
+default: build install
+
+install:
+    ./dotfiles.py install
 
 build:
     cd packages/aerospace/plugins/aerospace-tools && go build -o ../aerotools .
