@@ -1,55 +1,30 @@
-You are working in a dotfiles repository. Your job is to take all uncommitted and untracked changes and split them into logical, small commits — then write a shell script that performs those commits.
-
-## Repository structure
-
-This is a dotfiles repo organized into `packages/`. Each package is a tool or program:
-- `packages/nvim/` — Neovim config
-- `packages/fish/` — Fish shell (config.fish, conf.d/, functions/)
-- `packages/ghostty/` — Ghostty terminal
-- `packages/shell-common/` — Shared shell config (aliases, environment)
-- `packages/_home/` — Home directory dotfiles (bashrc, bash_profile, etc.)
-- `packages/scripts/` — Custom scripts
-- `packages/sketchybar/` — macOS bar
-- `packages/aerospace/` — Aerospace window manager
-- Other packages follow the same pattern.
-- Top-level files: `.gitignore`, `Justfile`, `dotfiles.py`
+You are working in a dotfiles repository. Your job is to take all uncommitted and untracked changes and split them into logical commits, then write a shell script that performs those commits.
 
 ## Commit message style
 
 Follow this exact style:
 - Format: `<scope>: <short description>`
-- Scope = the package name or top-level file name (e.g., `nvim`, `fish`, `ghostty`, `shell`, `bash`, `Justfile`, `gitignore`)
+- Scope should describe the part of the repo or change area, or use a top-level file name when that is the clearest description
 - Description is lowercase, no period, imperative mood
-- Keep it short and casual — no need to be overly formal
-- For lock file updates: just `nvim: lazy-lock`
-- For new packages: `<package>: init`
-- When a commit touches multiple related shells (bash + fish), combine: `bash/fish: <description>`
-
-Examples from this repo's history:
-- `nvim: update lsp config`
-- `nvim: fidget: fix deprecated nvimtree integration`
-- `ghostty: init`
-- `fish: add docker completions`
-- `shell: load rustup env`
-- `bash: add local bin to path`
-- `gitignore pycache`
-- `Justfile: fix aerospace build path`
-- `nvim: lazy-lock`
-- `fish: fix error when go is not installed`
+- Keep it short and casual, but specific enough to reflect the actual change
+- For tightly related changes that belong together, use one commit
+- For supporting metadata or generated files that are part of the same change, keep them with the parent change
+- Do not copy example wording; infer the real subject from the diff itself
 
 ## Grouping rules
 
-1. **One package per commit** — don't mix changes across unrelated packages.
-2. **Separate config changes from lock file updates** — e.g., nvim plugin config changes and lazy-lock.json should be separate commits.
-3. **Group related changes within a package** — e.g., if you switch a colorscheme in nvim and also add the colorscheme plugin, that's one commit.
-4. **Cross-package commits are OK when logically coupled** — e.g., adding LM Studio to PATH in both bashrc and fish config is one commit.
-5. **New untracked packages get an "init" commit** — e.g., `sketchybar: init`.
-6. **Small, obvious changes can stand alone** — a one-line alias addition is its own commit.
-7. **Order commits sensibly** — dependencies first (e.g., add a colorscheme file before the config that references it).
+1. **Group by shared intent** - keep changes together when they are part of the same user-visible or maintenance task.
+2. **Split only when it improves clarity** - separate commits only when the changes are independent enough to review, revert, or reason about separately.
+3. **Keep supporting changes with their cause** - include generated files, metadata, and follow-on adjustments in the same commit when they exist because of the main change.
+4. **Do not split by directory alone** - file location should not force a commit boundary if the changes belong together.
+5. **Prefer the real subject over placeholders** - derive commit subjects from the actual diff, not from generic examples or directory names.
+6. **Order commits sensibly** - dependencies first, then the changes that rely on them.
 
 ## Output
 
 Output ONLY the bash script — no markdown fences, no explanation, no preamble, no commentary before or after. The entire response must be the script and nothing else.
+
+Only commit files that were included in the prompt. If an untracked package tree was not shown in the prompt because it was excluded upstream, do not add it, do not mention it, and do not create commits for it.
 
 The script must:
 - Starts with `#!/bin/bash` and `set -e`
