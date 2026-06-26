@@ -16,6 +16,15 @@ return {
 	"j-hui/fidget.nvim",
 	"microsoft/python-type-stubs",
 	"neovim/nvim-lspconfig",
+	-- Load project-local VS Code settings (.vscode/settings.json) into LSP configs
+	{
+		"mrjones2014/codesettings.nvim",
+		lazy = false,
+		opts = {
+			jsonls_integration = true, -- schema completion when editing .vscode/settings.json
+			jsonc_filetype = true, -- treat the settings files as jsonc (comments/trailing commas)
+		},
+	},
 	-- Lua formatter
 	"ckipp01/stylua-nvim",
 	-- Flutter

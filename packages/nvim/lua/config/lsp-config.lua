@@ -77,6 +77,15 @@ local lsps = {
 	},
 }
 
+-- Apply project-local VS Code settings (.vscode/settings.json etc.) to every LSP.
+-- Workspace-file values override the defaults set below (deep-merge, lists appended).
+-- NOTE: rust-analyzer is handled separately in plugs/rust.lua (rustaceanvim doesn't
+-- fire this `*` hook for it).
+vim.lsp.config("*", {
+	before_init = function(_, config)
+		require("codesettings").with_local_settings(config.name, config)
+	end,
+})
 for k, v in pairs(lsps) do
 	local lsp_name, setup_table
 	if type(v) == "string" then
