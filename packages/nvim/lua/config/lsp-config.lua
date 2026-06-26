@@ -11,8 +11,13 @@ local merge = function(a, b)
 	return c
 end
 
+-- NOTE: scope :lsp commands to a named client (e.g. `:lsp restart gopls`).
+-- A bare `:lsp restart` / `:lsp enable` reaches into nvim-lspconfig's entire
+-- bundled registry and starts servers you never configured (gitlab_ls, etc.).
+-- Never start rust_analyzer this way either — rustaceanvim owns it (see plugs/rust.lua).
 local common_setup = {
 	on_attach = on_attach,
+	capabilities = require("blink.cmp").get_lsp_capabilities(),
 }
 
 local lsps = {
@@ -77,6 +82,11 @@ local lsps = {
 	},
 }
 
+-- Explicitly disable nvim-lspconfig's bundled GitLab Duo server so it can never
+-- start by accident (e.g. a bare `:lsp enable`, which enables every discovered
+-- config in the runtime's lsp/ dir). Its filetypes include rust/lua/go/etc.
+vim.lsp.enable("gitlab_duo", false)
+
 -- Apply project-local VS Code settings (.vscode/settings.json etc.) to every LSP.
 -- Workspace-file values override the defaults set below (deep-merge, lists appended).
 -- NOTE: rust-analyzer is handled separately in plugs/rust.lua (rustaceanvim doesn't
@@ -86,6 +96,7 @@ vim.lsp.config("*", {
 		require("codesettings").with_local_settings(config.name, config)
 	end,
 })
+
 for k, v in pairs(lsps) do
 	local lsp_name, setup_table
 	if type(v) == "string" then

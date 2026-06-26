@@ -5,7 +5,7 @@ return {
 		priority = 1000,
 		config = function()
 			require("jellybeans").setup({
-				transparent = false,
+				transparent = true,
 				italics = false,
 				bold = true,
 				flat_ui = false, -- toggles "flat UI" for pickers
