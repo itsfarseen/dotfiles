@@ -11,11 +11,11 @@ focus-follows-mouse = true
 # colorscheme
 config-file = ./jellybeans-default
 
-# background-opacity = 0.85
-# background-blur = true
+background-opacity = 0.85
+background-blur = true
 # macos-titlebar-style = hidden
 # macos-titlebar-style = tabs
-macos-window-buttons = hidden
+# macos-window-buttons = hidden
 # window-decoration = none
 window-save-state = never
 
