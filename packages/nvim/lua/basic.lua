@@ -16,20 +16,10 @@ vim.cmd([[
   nnoremap <leader>k  :wincmd k <CR>
   nnoremap <leader>j  :wincmd j <CR>
 
-  nnoremap <C-l>  :wincmd l <CR>
-  nnoremap <C-h>  :wincmd h <CR>
-  nnoremap <C-k>  :wincmd k <CR>
-  nnoremap <C-j>  :wincmd j <CR>
-
   nnoremap <leader>wl  :rightbelow vsplit <CR>
   nnoremap <leader>wh  :leftabove vsplit <CR>
   nnoremap <leader>wk  :leftabove split <CR>
   nnoremap <leader>wj  :rightbelow split <CR>
-
-  nnoremap <C-S-l>  :rightbelow vsplit <CR>
-  nnoremap <C-S-h>  :leftabove vsplit <CR>
-  nnoremap <C-S-k>  :leftabove split <CR>
-  nnoremap <C-S-j>  :rightbelow split <CR>
 
   nnoremap <leader>,  :bprev <CR>
   nnoremap <leader>.  :bnext <CR>
