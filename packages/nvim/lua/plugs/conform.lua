@@ -11,6 +11,7 @@ return {
 			python = { "isort", "black" },
 			templ = { "templ" },
 			go = { "goimports", "gofmt" },
+			rust = { "rustfmt" },
 			html = prettierOrPrettierD,
 			javascriptreact = prettierOrPrettierD,
 			typescriptreact = prettierOrPrettierD,
@@ -34,7 +35,16 @@ return {
 		},
 	},
 	init = function()
-		-- If you want the formatexpr, here is the place to set it
-		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(args)
+				local ok, conform = pcall(require, "conform")
+				if not ok then
+					return
+				end
+				if #conform.list_formatters_to_run(args.buf) > 0 then
+					vim.bo[args.buf].formatexpr = "v:lua.require'conform'.formatexpr()"
+				end
+			end,
+		})
 	end,
 }
